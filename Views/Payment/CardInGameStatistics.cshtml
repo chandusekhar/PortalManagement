@@ -1,0 +1,149 @@
+﻿<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+
+
+@{
+    var cardTypes = (List<int>)ViewBag.Types;
+    var pays = ViewBag.NumOfPays;
+}
+@functions
+{
+
+    string GetPayName(int index)
+    {
+        switch (index)
+        {
+            case 1:
+                return "Pay VZ";
+            case 2:
+                return "Pay BB2D";
+            case 3:
+                return "Pay Timo";
+            case 4:
+                return "Pay Khan";
+            case 5:
+                return "Pay MB";
+            default:
+                return "undefined";
+        }
+    }
+
+    string GetCardname(int index)
+    {
+        switch (index)
+        {
+            case 1:
+                return "Viettel";
+            case 2:
+                return "Mobiphone";
+            case 3:
+                return "Vinaphone";
+            case 4:
+                return "Zing";
+            default:
+                return "undefined";
+        }
+    }
+
+
+}
+
+
+<div id="page-wrapper" style="min-height: 896px;">
+    <div class="main-page">
+        <h2 class="title1">Chọn tháng</h2>
+        <div class="row">
+            <div class="form-group col-md-1">
+                <input type="hidden" id="month" />
+                <input type="hidden" id="year" />
+                <input name="startDate" id="startDate" class="date-picker col-md-12 pull-left" readonly />
+            </div>
+        </div>
+        <h2 class="title1">Chọn pay</h2>
+        <div class="row">
+            <div class="form-group col-md-1">
+                <select class="form-control" id="paySelection">
+                    <option value="0">Tất cả</option>
+                    @for (var i = 1; i <= pays; i++)
+                    {
+                        <option value="@i">@GetPayName(i)</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <h2 class="title1">Chọn loại thẻ</h2>
+        <div class="row">
+            <div class="form-group col-md-1">
+                <select class="form-control" id="cardTypeSelection">
+                    <option value="0">Tất cả</option>
+                    @foreach (var i in cardTypes)
+                    {
+                        <option value="@i">@GetCardname(i)</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1">
+                <button class="btn-success" id="btn_dayFilter">Lọc</button>
+            </div>
+        </div>
+        <h2 class="title1">Dữ liệu lọc theo điều kiện</h2>
+        <div id="datePayLogsData"></div>
+        
+      
+    </div>
+</div>
+<script>
+    var cardInGame = {
+        LoadDatePayLog: function() {
+            var month = parseInt($('#month').val());
+            var year = parseInt($('#year').val());
+            var pay = parseInt($("#paySelection").val());
+            var cardType = parseInt($("#cardTypeSelection").val());
+            $.ajax({
+                type: "GET",
+                url: '/Payment/PayLogByDate',
+                data: { month: month, year: year, pay: pay, type: cardType},
+                success: function (data) {
+                    $("#datePayLogsData").html(data);
+                },
+                error: function(e) {
+                    console.log(e);
+                }
+            });
+        }
+    }
+    $(document).ready(function () {
+
+        $('.date-picker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'mm - yy',
+            onClose: function (dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                $('#month').val(inst.selectedMonth + 1);
+                $('#year').val(inst.selectedYear);
+            },
+            defaultDate: new Date() 
+        });
+
+        $(".date-picker").datepicker("setDate", new Date());
+        var date = new Date();
+
+        $('#month').val(date.getMonth() + 1);
+        $('#year').val(date.getFullYear());
+
+        //
+        $("#btn_dayFilter").unbind("click");
+        $("#btn_dayFilter").click(function () {
+            cardInGame.LoadDatePayLog();
+        });
+
+
+    });
+</script>

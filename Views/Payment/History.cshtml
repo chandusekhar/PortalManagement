@@ -1,0 +1,86 @@
+﻿<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+
+
+<script src="~/Scripts/apps/Payment/pmhistory.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="pmhistory" ng-init="init()">
+    <div class="main-page">
+        <h2 class="title1">Lịch sử nạp tiền</h2>
+
+        <div class="row">
+
+            <div class="form-group col-md-3">
+                <input type="hidden" id="start" />
+                <input type="hidden" id="end" />
+                <input name="daterange" id="startDate" class="date-picker col-md-12 pull-left" readonly />
+            </div>
+
+
+            <button type="button" class="btn btn-primary col-md-1" ng-click="do()" style="margin-left: 50px">Thống kê</button>
+        </div>
+
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ngày</th>
+                            <th>Loại nạp</th>
+                            <th>Mô tả</th>
+                            <th>Giá trị</th>
+                            <th>Tài khoản nạp</th>
+                            <th>Người nạp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in datatable">
+                            <th scope="row">{{$index + curPage * 30 + 1}}</th>
+                            <td>{{x.CreatedTime | formatDate}}</td>
+                            <td>{{castType(x.Type)}}</td>
+                            <td>{{x.Description}}</td>
+                            <td>{{parseMoney(x.Value)}}</td>
+                            <td>{{x.AccountName}}</td>
+                            <td>{{x.AdderName}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-3 pull-right" style="padding-top:20px">
+                <button type="button" class="btn btn-primary pull-left col-md-5" ng-click="prev()" ng-show="curPage >= 1">Trước</button>
+                <button type="button" class="btn btn-primary pull-right col-md-5" ng-click="next()">Sau</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'right',
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, function (start, end, label) {
+            $('#start').val(start.format("YYYYMMDD"));
+            $('#end').val(end.format("YYYYMMDD"));
+        });
+
+        $('#start').val(moment().format("YYYYMMDD"));
+        $('#end').val(moment().format("YYYYMMDD"));
+    });
+</script>

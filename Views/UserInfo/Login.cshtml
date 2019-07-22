@@ -1,0 +1,64 @@
+﻿<script src="~/Scripts/apps/UserInfo/search.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="search" ng-init="lstBlockLogin(0)">
+    <div class="main-page">
+        <h2 class="title1">Danh sách tài khoản bị chặn đăng nhập</h2>
+        <div class="table">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tên tài khoản</th>
+                            <th>Số dư</th>
+                            <th>Thời gian khóa</th>
+                            <th>Người khóa</th>
+                            <th>Lí do</th>
+                            <th>Mở khóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in blockLogins">
+                            <th scope="row">{{$index + 1 + 20 * curPage}}</th>
+                            <td>{{x.DisplayName}}</td>
+                            <td>{{x.Gold}}</td>
+                            <td>{{x.CreatedTime | formatDate}}</td>
+                            <td>{{x.AccountName}}</td>
+                            <td>{{x.Reason}}</td>
+                            <td><button type="button" class="btn btn-primary col-md-12" data-toggle="modal" data-target="#unblockLogin" ng-click="setIndex($index, x)">Mở khóa</button></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div style="padding-top: 10px;" class="col-md-3 pull-right">
+            <button type="button" class="btn btn-primary pull-left col-md-5" ng-click="prev()" ng-show="curPage >= 1">Trước</button>
+            <button type="button" class="btn btn-primary pull-right col-md-5" ng-click="next()">Sau</button>
+        </div>
+    </div>
+
+    <div>
+        <div class="modal fade" id="unblockLogin" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Chặn đăng nhập</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Xác nhận mở khóa đăng nhập người chơi?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click="UnBlockLogin()" data-dismiss="modal">đồng ý</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

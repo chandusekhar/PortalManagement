@@ -1,0 +1,79 @@
+﻿<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+
+<script src="~/Scripts/apps/Game/jackpot.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="jackpot">
+    <div class="main-page">
+        <h2 class="title1">Thống kê nổ hũ</h2>
+
+        <div class="row">
+
+            <div class="form-group col-md-3">
+                <input type="hidden" id="start" />
+                <input type="hidden" id="end" />
+                <input name="daterange" id="startDate" class="date-picker col-md-12 pull-left" readonly />
+            </div>
+
+
+            <button type="button" class="btn btn-primary col-md-1" ng-click="getJackpot()" style="margin-left: 50px">Thống kê</button>
+        </div>
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Game</th>
+                            <th>Thời gian</th>
+                            <th>Tên hiển thị</th>
+                            <th>Phòng</th>
+                            <th>Mã phiên</th>
+                            <th>Jackpot</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in data">
+                            <td>{{$index + 1}}</td>
+                            <td>{{x.GameName}}</td>
+                            <td>{{x.CreatedDate | formatDate}}</td>
+                            <td>{{x.AccountName}}</td>
+                            <td>{{x.BetValue}}</td>
+                            <td>{{x.SessionID}}</td>
+                            <td>{{parseMoney(x.PrizeValue)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'right',
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, function (start, end, label) {
+            $('#start').val(start.format("MM/DD/YYYY"));
+            $('#end').val(end.format("MM/DD/YYYY"));
+        });
+
+        $('#start').val(moment().format("MM/DD/YYYY"));
+        $('#end').val(moment().format("MM/DD/YYYY"));
+    });
+</script>

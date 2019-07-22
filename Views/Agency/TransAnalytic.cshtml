@@ -1,0 +1,79 @@
+﻿<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+<script src="~/Scripts/apps/Agency/agenTransAnalytic.js"></script>
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="agencyTransAnalytic" ng-init="init()">
+    <div class="main-page">
+        <h2 class="title1">Thống kê giao dịch đại lý</h2>
+
+        <div class="row">
+
+            <div class="form-group col-md-3">
+                <input type="hidden" id="month" ng-model="month" />
+                <input type="hidden" id="year" ng-model="year" />
+                <input name="startDate" id="startDate" class="date-picker col-md-12 pull-left" readonly />
+            </div>
+
+
+            <button type="button" class="btn btn-primary col-md-1" ng-click="get()" style="margin-left: 50px">Thống kê</button>
+        </div>
+
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Đại lý</th>
+                            <th>Tên hiển thị chuyển tiền</th>
+                            <th>GameID</th>
+                            <th>Tổng mua</th>
+                            <th>Tổng bán</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in datatable">
+                            <th scope="row">{{$index + 1}}</th>
+                            <td>{{x.DisplayName}}</td>
+                            <td>{{x.Username}}</td>
+                            <td>{{x.GameAccountId}}</td>
+                            <td>{{parseMoney(x.TotalRecv)}}</td>
+                            <td>{{parseMoney(x.TotalSend)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="border: 1px solid #e3e3e3;" ng-if="datatable.length">
+                    <div class="col-md-6" style="padding: 15px;">
+                        <strong>Tổng mua: {{parseMoney(totalBuy)}}</strong>
+                    </div>
+                    <div class="col-md-6" style="padding: 15px;">
+                        <strong>Tổng bán: {{parseMoney(totalSell)}}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('.date-picker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'mm - yy',
+            onClose: function (dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                $('#month').val(inst.selectedMonth + 1);
+                $('#year').val(inst.selectedYear);
+            }
+        });
+
+        $(".date-picker").datepicker("setDate", new Date());
+    });
+</script>

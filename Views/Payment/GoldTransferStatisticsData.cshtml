@@ -1,0 +1,141 @@
+﻿@using System.Globalization
+@using PortalManagement.Models.Bussiness.Payment
+
+@{
+    var allDate = ViewData["AllDate"] as IEnumerable<string>;
+    var ownerList = ViewData["OwnerList"] as List<AgencyTranByDate>;
+    var partnerList = ViewData["PartnerList"] as List<AgencyTranByDate>;
+}
+<div class="table row">
+    <div class="table-responsive bs-example widget-shadow">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="5" style="text-align: center">Đại lý bán R cho NPH</th>
+                    <th colspan="3" style="text-align: center">Đại lý mua R của NPH</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Ngày</td>
+                    <td>Tổng tiền R</td>
+                    <td>Tổng tiền VNĐ</td>
+                    <td>Số lượng giao dịch</td>
+                    <td></td>
+                    <td>Tổng tiền Rồng</td>
+                    <td>Tổng tiền VNĐ</td>
+                    <td colspan="2">Số lượng giao dịch</td>
+                </tr>
+                @foreach (var date in allDate)
+                {
+                    <tr>
+                        <td>@date</td>
+                        @if (partnerList.Any(x => x.DateString == date)) // dai ly ban rong
+                        {
+                            var currentItem = partnerList.Single(x => x.DateString == date);
+                            if (currentItem.TotalGold > 999)
+                            {
+                                <td>@currentItem.TotalGold.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                            }
+                            else
+                            {
+                                <td>@currentItem.TotalGold</td>
+                            }
+                            if (currentItem.TotalMoney > 999)
+                            {
+                                <td>@currentItem.TotalMoney.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                            }
+                            else
+                            {
+                                <td>@currentItem.TotalMoney</td>
+                            }
+
+                            <td>@currentItem.TotalTrans</td>
+
+                            <td><a href="javascript:;" onclick="ViewGoldTransferDetails('@currentItem.DateString', true)">Xem chi tiết</a></td>
+                        }
+                        else
+                        {
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        }
+
+                        @if (ownerList.Any(x => x.DateString == date))
+                        {
+                            var currentItem = ownerList.Single(x => x.DateString == date);
+                            if (currentItem.TotalGold > 999)
+                            {
+                                <td>@currentItem.TotalGold.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                            }
+                            else
+                            {
+                                <td>@currentItem.TotalGold</td>
+                            }
+                            if (currentItem.TotalMoney > 999)
+                            {
+                                <td>@currentItem.TotalMoney.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                            }
+                            else
+                            {
+                                <td>@currentItem.TotalMoney</td>
+                            }
+
+                            <td>@currentItem.TotalTrans</td>
+
+                            <td><a href="javascript:;" onclick="ViewGoldTransferDetails('@currentItem.DateString', false)">Xem chi tiết</a></td>
+                        }
+                        else
+                        {
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
+                        }
+                    </tr>
+                }
+                <tr>
+                    <td>Tổng</td>
+                    @if (ViewBag.TotalPartnerGold > 999)
+                    {
+                        <td>@ViewBag.TotalPartnerGold.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                    }
+                    else
+                    {
+                        <td>@ViewBag.TotalPartnerGold</td>
+                    }
+                    @if (ViewBag.TotalPartnerMoney > 999)
+                    {
+                        <td>@ViewBag.TotalPartnerMoney.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                    }
+                    else
+                    {
+                        <td>@ViewBag.TotalPartnerMoney</td>
+                    }
+                    <td>@ViewBag.TotalPartnerTrans</td>
+                    <td></td>
+
+                    @if (ViewBag.TotalOwnerGold > 999)
+                    {
+                        <td>@ViewBag.TotalOwnerGold.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                    }
+                    else
+                    {
+                        <td>@ViewBag.TotalOwnerGold</td>
+                    }
+                    @if (ViewBag.TotalOwnerMoney > 999)
+                    {
+                        <td>@ViewBag.TotalOwnerMoney.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                    }
+                    else
+                    {
+                        <td>@ViewBag.TotalOwnerMoney</td>
+                    }
+                    <td>@ViewBag.TotalOwnerTrans</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

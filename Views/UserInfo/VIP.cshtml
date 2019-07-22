@@ -1,0 +1,120 @@
+﻿<style>
+    .folder input {
+        margin: 10px auto;
+        min-width: 100%
+    }
+
+    .chat-grid input {
+        margin: 5px auto;
+        min-width: 100%
+    }
+
+    .chat-grid {
+        padding: 10px;
+    }
+
+    .folder {
+        padding: 10px;
+    }
+
+    .list-group-item {
+        padding: 5px !important;
+    }
+</style>
+
+<script src="~/Scripts/apps/UserInfo/vipManagement.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="vipManagement">
+    <div class="main-page">
+        <h2 class="title1">Tra cứu VIP</h2>
+        <div class="col-md-4 compose-left">
+            <div class="folder widget-shadow">
+                <ul>
+                    <li class="head"><i class="fa fa-search" aria-hidden="true"></i>Filter</li>
+                    <li><input type="text" class="form-control" ng-model="accountname" placeholder="Tên hiển thị" required=""></li>
+                    <li><input type="text" class="form-control" ng-model="username" placeholder="Tên đăng nhập" required=""></li>
+                    <li><input type="text" class="form-control" ng-model="accountid" placeholder="Id tài khoản" required=""></li>
+                    <li><input type="text" class="form-control" ng-model="phonenumber" placeholder="Số điện thoại" required=""></li>
+                    <li><input type="button" class="btn btn-primary" value="Tìm kiếm" ng-click="search()" /></li>
+                </ul>
+            </div>
+            <div class="chat-grid widget-shadow" ng-show="currentRank >= 0" id="selectedInfo">
+                <ul>
+                    <li class="head"><i class="fa fa-user" aria-hidden="true"></i>Thông tin chi tiết </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p><b>Hạng hiện tại</b></p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{currentRank}}</p>
+                            </div>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <div role="tabpanel" class="tab-pane table-responsive">
+                            <table class="table table-bordered" ng-show="vipInfo != null && vipInfo.length > 0">
+                                <thead>
+                                    <tr>
+                                        <th>Hạng</th>
+                                        <th>Tgian lên hạng</th>
+                                        <th>Phần thưởng</th>
+                                        <th>Tgian nhận thưởng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in vipInfo">
+                                        <td>{{x.Rank}}</td>
+                                        <td>{{x.CreatedTime | formatDate}}</td>
+                                        <td class="text-center"><span ng-if="x.Status == 0" >Chưa nhận</span><span ng-if="x.Status == 1">Đã nhận ({{x.Reward | parseMoney}})</span></td>
+                                        <td>{{x.ReceivedTime | formatDate}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8 compose-right widget-shadow" id="resultSearch">
+            <div class="panel-default">
+                <div class="panel-heading">
+                    Kết quả tìm kiếm
+                </div>
+                <div class="inbox-page">
+                    <h4 ng-show="result == null || result.length == 0">Không có kết quả nào phù hợp</h4>
+                    <div class="card card-contact-list" ng-show="result != null && result.length > 0">
+                        <div class="agileinfo-cdr">
+                            <div class="card-header">
+                                <h3>Tìm thấy {{result.length}} kết quả</h3>
+                            </div>
+                            <hr class="widget-separator">
+                            <div class="card-body p-b-20">
+                                <div class="list-group" ng-repeat="x in result">
+                                    <a class="list-group-item media" href="javacript:" ng-click="getVIPInfo(x)">
+                                        <div class="pull-left">
+                                            <img class="lg-item-img" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="pull-left">
+                                                <div class="lg-item-heading">{{x.DisplayName}}</div>
+                                                <small class="lg-item-text">{{x.Username}}</small>
+                                            </div>
+                                            <div class="pull-right">
+                                                <div class="lg-item-heading">{{x.UserType == 1 ? "Tài khoản thường" : "Tài khoản facebook"}}</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,115 @@
+﻿@model IEnumerable<PortalManagement.Models.Bussiness.Payment.PayLog>
+@functions
+{
+
+    string GetCardname(int index)
+    {
+        switch (index)
+        {
+            case 1:
+                return "Viettel";
+            case 2:
+                return "Mobiphone";
+            case 3:
+                return "Vinaphone";
+            case 4:
+                return "Zing";
+            default:
+                return "undefined";
+        }
+    }
+
+
+}
+<div id="page-wrapper" style="min-height: 896px;" class="payLogsData">
+    <div class="row">
+        <ul class="pagination">
+            @if (ViewBag.CurrentPage != 1)
+            {
+                <li class="page-item"><a class="page-link" href="javascript:;" onclick="cardInGame.LoadPayLog(@(ViewBag.CurrentPage - 1))">Previous</a></li>
+            }
+
+            <li class="page-item" active><a class="page-link active" href="javascript:;">@ViewBag.CurrentPage</a></li>
+            @if (ViewBag.CurrentPage != ViewBag.TotalPage)
+            {
+                <li class="page-item"><a class="page-link" href="javascript:;" onclick="cardInGame.LoadPayLog(@(ViewBag.CurrentPage + 1))">Next</a></li>
+            }
+
+        </ul>
+    </div>
+
+    <div class="table row">
+        <div class="table-responsive bs-example widget-shadow">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>User Id</th>
+                        <th>Loại thẻ</th>
+                        <th>Seri</th>
+                        <th>Code</th>
+                        <th>Mệnh giá</th>
+                        <th>Trạng thái</th>
+                        <th>Mã lỗi</th>
+                        <th>Ngày tạo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var stt = (ViewBag.CurrentPage - 1) * 100;
+                        foreach (var item in Model)
+                        {
+                            stt++;
+                            <tr>
+                                <td>@stt</td>
+                                <td>@item.AccountId</td>
+                                <td>@GetCardname(item.CardType)</td>
+                                <td>@item.Serial</td>
+                                <td>@item.CardCode</td>
+                                <td>@item.Amount</td>
+                                <td>@item.StatusStr</td>
+                                <td>@item.Status</td>
+                                <td>@item.CreatedTime</td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<script>
+
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+
+    var cardInGame = {
+        LoadPayLog: function (page) {
+            $.ajax({
+                type: "GET",
+                url: '/Payment/PayLogData',
+                data: { month: getUrlParameter("month"), year: getUrlParameter("year"), pay: getUrlParameter("pay"), type: getUrlParameter("type"), page: page },
+                success: function (data) {
+                    $(".payLogsData").html(data);
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+        }
+    }
+</script>

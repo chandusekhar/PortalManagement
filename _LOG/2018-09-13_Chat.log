@@ -1,0 +1,20 @@
+2018-09-13 11:38:50.5582 ERROR 	UserDAO.GetNRU 
+Incorrect syntax near '12'.
+   at Utilities.Database.DBHelper.GetList[T](SqlCommand sqlCommand) in D:\CMS Rồng\PortalManagement\Models\Utilities\Database\DBHelper.cs:line 585
+   at Utilities.Database.DBHelper.GetList[T](String strSQL) in D:\CMS Rồng\PortalManagement\Models\Utilities\Database\DBHelper.cs:line 602
+   at PortalManagement.Models.DataAccess.UserInfo.UserDAO.GetNRU(DateTime start, DateTime end) in D:\CMS Rồng\PortalManagement\Models\DataAccess\UserInfo\UserDAO.cs:line 113
+2018-09-13 11:39:00.6599 ERROR 	UserDAO.GetNRU 
+Incorrect syntax near '12'.
+   at Utilities.Database.DBHelper.GetList[T](SqlCommand sqlCommand) in D:\CMS Rồng\PortalManagement\Models\Utilities\Database\DBHelper.cs:line 585
+   at Utilities.Database.DBHelper.GetList[T](String strSQL) in D:\CMS Rồng\PortalManagement\Models\Utilities\Database\DBHelper.cs:line 602
+   at PortalManagement.Models.DataAccess.UserInfo.UserDAO.GetNRU(DateTime start, DateTime end) in D:\CMS Rồng\PortalManagement\Models\DataAccess\UserInfo\UserDAO.cs:line 113
+2018-09-13 11:39:13.4356 ERROR 	UserDAO.GetNRU 
+Incorrect syntax near '12'.
+   at Utilities.Database.DBHelper.GetList[T](SqlCommand sqlCommand) in D:\CMS Rồng\PortalManagement\Models\Utilities\Database\DBHelper.cs:line 585
+   at Utilities.Database.DBHelper.GetList[T](String strSQL) in D:\CMS Rồng\PortalManagement\Models\Utilities\Database\DBHelper.cs:line 602
+   at PortalManagement.Models.DataAccess.UserInfo.UserDAO.GetNRU(DateTime start, DateTime end) in D:\CMS Rồng\PortalManagement\Models\DataAccess\UserInfo\UserDAO.cs:line 113
+2018-09-13 11:40:01.6755 ERROR 	UserDAO.GetNRU 
+Invalid column name 'IsRegister'.
+   at Utilities.Database.DBHelper.GetList[T](SqlCommand sqlCommand)
+   at Utilities.Database.DBHelper.GetList[T](String strSQL)
+   at PortalManagement.Models.DataAccess.UserInfo.UserDAO.GetNRU(DateTime start, DateTime end)

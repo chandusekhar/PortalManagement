@@ -1,0 +1,122 @@
+﻿<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+<script src="~/Scripts/apps/Agency/agencyDash.js"></script>
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="agencyDash" ng-init="init()">
+    <div class="main-page">
+        <div class="row">
+            <div class="form-group col-md-3">
+                <input type="hidden" id="month" ng-model="month" />
+                <input type="hidden" id="year" ng-model="year" />
+                <input name="startDate" id="startDate" class="date-picker col-md-12 pull-left" readonly />
+            </div>
+
+            <button type="button" class="btn btn-primary col-md-1" ng-click="getdata()" style="margin-left: 50px">Thống kê</button>
+        </div>
+
+        <h2 class="title1">Thống kê đại lý cấp 1</h2>
+
+        <div class="table-responsive bs-example widget-shadow">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tên đại lý</th>
+                        <th>Số dư</th>
+                        <th>Két</th>
+                        <th>Tổng luồng tiền</th>
+                        <th>Tổng phế hoàn</th>
+                        <th>Tổng phế hoàn từ cấp 2</th>
+                        <th>Tổng giao dịch thực hiện</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in data1">
+                        <td>{{$index + 1}}</td>
+                        <td>{{x.Displayname}}</td>
+                        <td>{{x.Gold | parseMoney}}</td>
+                        <td>{{x.LockedGold | parseMoney}}</td>
+                        <td>{{x.TotalGold | parseMoney}}</td>
+                        <td>{{x.TRF | parseMoney}}</td>
+                        <td>{{x.TRF2 | parseMoney}}</td>
+                        <td>{{x.TransactionCount | parseMoney}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <h2 class="title1" style="padding-top: 20px">Thống kê đại lý cấp 2</h2>
+
+        <div class="table-responsive bs-example widget-shadow">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tên đại lý</th>
+                        <th>Số dư</th>
+                        <th>Két</th>
+                        <th>Tổng luồng tiền</th>
+                        <th>Tổng phế hoàn</th>
+                        <th>Tổng phế chưa hoàn</th>
+                        <th>Tổng giao dịch thực hiện</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in data2">
+                        <td>{{$index + 1}}</td>
+                        <td>{{x.Displayname}}</td>
+                        <td>{{x.Gold | parseMoney}}</td>
+                        <td>{{x.LockedGold | parseMoney}}</td>
+                        <td>{{x.TotalGold | parseMoney}}</td>
+                        <td>{{x.TRF | parseMoney}}</td>
+                        <td>{{x.TURF | parseMoney}}</td>
+                        <td>{{x.TransactionCount | parseMoney}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <h2 class="title1" style="padding-top: 20px">Xếp hạng đại lý</h2>
+
+        <div class="table-responsive bs-example widget-shadow">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tên đại lý</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="x in rank">
+                        <td>{{$index + 1}}</td>
+                        <td>{{x.Displayname}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.date-picker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'mm - yy',
+            onClose: function (dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                $('#month').val(inst.selectedMonth + 1);
+                $('#year').val(inst.selectedYear);
+            }
+        });
+
+        $(".date-picker").datepicker("setDate", new Date());
+    });
+</script>

@@ -1,0 +1,41 @@
+﻿<script src="~/Scripts/apps/Payment/pmverify.js"></script>
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="pmverify" ng-init="init();">
+    <div class="main-page">
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow" style="padding: 20px;">
+                <h2 class="title1">Tình trạng kho thẻ</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>AccountID</th>
+                            <th>AccountName</th>
+                            <th>Amount</th>
+                            <th>TelCode</th>
+                            <th>Request time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in datatable">
+                            <td>{{x.ID}}</td>
+                            <td>{{x.AccountId}}</td>
+                            <td>{{x.AccountName}}</td>
+                            <td>{{x.Amount | parseMoney}}</td>
+                            <td>{{x.TelCode}}</td>
+                            <td>{{x.CreatedTime | formatDate}}</td>
+                            <td>
+                                <a class="btn btn-success" ng-click="acceptCard(x.ID)">
+                                    <i class="fa fa-check"></i>
+                                </a>
+                                <a class="btn btn-danger" ng-click="deleteCard(x.ID)">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

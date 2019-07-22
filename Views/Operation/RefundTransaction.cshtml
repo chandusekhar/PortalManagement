@@ -1,0 +1,65 @@
+﻿<script src="~/Scripts/apps/Transaction/refundTrans.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="refundTrans">
+    <div class="main-page">
+        <h2 class="title1">Hoàn giao dịch</h2>
+        <div class="col-md-4 compose-left">
+            <div class="folder widget-shadow">
+                <ul>
+                    <li class="head"><i class="fa fa-search" aria-hidden="true"></i>Hoàn giao dịch</li>
+                    <li><input type="text" class="form-control" ng-model="transactionId" placeholder="Mã giao dịch" required=""></li>
+                    <li><input type="button" class="btn btn-primary" value="Hoàn giao dịch" ng-click="search()" /></li>
+                </ul>
+            </div>
+        </div>
+        <br />
+        <h2 class="title1">Lịch sử hoàn giao dịch</h2>
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Thời gian</th>
+                            <th>Mã giao dịch</th>
+                            <th>Người gửi</th>
+                            <th>Người nhận</th>
+                            <th>Số tiền</th>
+                            <th>Người hoàn</th>
+                            <th>Lí do</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in data">
+                            <td>{{x.CreatedTime | formatDate}}</td>
+                            <td>{{x.Id}}</td>
+                            <td>{{x.SenderName}}</td>
+                            <td>{{x.RecvName}}</td>
+                            <td>{{x.RefundValue}}</td>
+                            <td>{{x.Creator}}</td>
+                            <td>{{x.Reason}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="refundTransaction" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Hoàn giao dịch</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Xác nhận hoàn lại giao dịch phiên: {{transactionId}} ?</p>
+                    <input type="text" class="form-control" ng-model="reason" placeholder="Lí do" required="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="refundTransaction()" data-dismiss="modal">Đồng ý</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

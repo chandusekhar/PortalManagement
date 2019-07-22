@@ -1,0 +1,125 @@
+﻿<div id="page-wrapper" style="min-height: 896px;">
+    <div class="main-page">
+        <h2 class="title1">Chỉnh sửa bot</h2>
+
+        <div class="col-md-10">
+            <div class="box span12">
+                <div class="box-header" data-original-title="">
+                    <h2><i class="halflings-icon white edit"></i></span>Cấu hình bot Tài Xỉu</h2>
+                    <div class="box-icon">
+
+                    </div>
+                </div>
+                <div class="box-content">
+                    <form class="form-horizontal" action="@Url.Action("Update")" method="post">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label" for="focusedInput">Min Bot</label>
+                                <div class="controls">
+                                    <input class="input-xlarge focused" type="text" value="@Model.BotConfig.MinBot" name="minbot">
+                                </div>
+
+                                <label class="control-label" for="focusedInput">Max Bot</label>
+                                <div class="controls">
+                                    <input class="input-xlarge focused" type="text" value="@Model.BotConfig.MaxBot" name="maxbot">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="focusedInput">Rich Bot</label>
+                                <div class="controls">
+                                    <input class="input-xlarge focused" type="text" value="@Model.BotConfig.NumRichBot" name="richbot">
+                                </div>
+                                <label class="control-label" for="focusedInput">Normal Bot</label>
+                                <div class="controls">
+                                    <input class="input-xlarge focused" type="text" value="@Model.BotConfig.NumNormalBot" name="normalbot">
+                                </div>
+                                <label class="control-label" for="focusedInput">Poor Bot</label>
+                                <div class="controls">
+                                    <input class="input-xlarge focused" type="text" value="@Model.BotConfig.NumPoorBot" name="poorbot">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="focusedInput">Rich Change Rate</label>
+                                <div class="controls">
+                                    <input class="input-xlarge focused" type="text" value="@Model.BotConfig.VipChangeRate" name="richchangerate">
+                                </div>
+                                <label class="control-label" for="focusedInput">Normal Change Rate</label>
+                                <div class="controls">
+                                    <input class="input-xlarge focused" type="text" value="@Model.BotConfig.NorChangeRate" name="normalchangerate">
+                                </div>
+                                <label class="control-label" for="focusedInput">Poor Change Rate</label>
+                                <div class="controls">
+                                    <input class="input-xlarge focused" type="text" value="@Model.BotConfig.PoorChangeRate" name="poorchangerate">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label" for="focusedInput">Min Time Change</label>
+                                <div class="controls">
+                                    <input class="input-xlarge focused" type="text" value="@Model.BotConfig.MinTimeChange" name="mintimechange">
+                                </div>
+                                <label class="control-label" for="focusedInput">Max Time Change</label>
+                                <div class="controls">
+                                    <input class="input-xlarge focused" type="text" value="@Model.BotConfig.MaxTimeChange" name="maxtimechange">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">Kích hoạt</label>
+                                <input type="checkbox" @(Model.BotConfig.Enable ? "checked" : string.Empty) name="enable">
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div><!--/span-->
+        </div>
+
+        <div class="col-md-10">
+
+            <div class="box greenLight span2" ontablet="span4" ondesktop="span2">
+                <div class="box-header">
+                    <h2><i class="halflings-icon white list"></i><span class="break"></span>Bot Fund</h2>
+                    <div class="box-icon">
+                    </div>
+                </div>
+                <div class="box-content">
+                    <ul class="dashboard-list metro">
+                        <li>
+                            <a style="padding: 10px 10px 10px 10px; font-size:20px">
+                                <strong>@Model.FundInfo.Config.Fund.ToString("C0").Replace("$", "")</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div><!--/span-->
+
+            <div class="box greenLight span2" ontablet="span4" ondesktop="span2">
+                <div class="box-header">
+                    <h2><i class="halflings-icon white list"></i><span class="break"></span>Bot Profit</h2>
+                    <div class="box-icon">
+                    </div>
+                </div>
+                <div class="box-content">
+                    <ul class="dashboard-list metro">
+                        <li>
+                            <a style="padding: 10px 10px 10px 10px; font-size:20px">
+                                <strong>@Model.FundInfo.BotProfit.ToString("C0").Replace("$", "")</strong>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div><!--/span-->
+
+            <div id="bot_betvalues_data">
+                @Html.Action("BetValueData", new { vip = 2 })
+            </div>
+        </div>
+    </div>
+</div>

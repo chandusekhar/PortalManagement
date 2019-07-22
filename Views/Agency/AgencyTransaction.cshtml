@@ -1,0 +1,187 @@
+﻿<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" tabindex="text/css" href="//cdn.datatables.net/1.10.18/css/jquery.dataTables.min.css" />
+<script type="text/javascript" src="//cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/apps/Agency/agencyTransactionHis.js"></script>
+<style>
+    .col-sm-4 p {
+        margin-top: 7px !important
+    }
+
+    #tableData_filter {
+        padding-bottom: 10px
+    }
+
+    .ng-table-pager {
+        display: none;
+    }
+</style>
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="agencyTransactionHis" ng-init="init()">
+    <div class="main-page">
+        <h2 class="title1">Lịch sử giao dịch</h2>
+
+        <div class="form-three widget-shadow">
+            <form class="form-horizontal">
+                <input type="hidden" id="start" />
+                <input type="hidden" id="end" />
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-5 control-label">Chọn loại giao dịch: </label>
+                    <div class="col-sm-5">
+                        <select style="margin-top: 7px !important" id="optionValue">
+                            <option value="0">Tất cả</option>
+                            <option value="1">Mua vào</option>
+                            <option value="2">Bán ra</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-5 control-label">Chọn ngày giao dịch: </label>
+                    <div class="col-sm-4">
+                        <div id="reportrange" class="pull-left" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                            <i class="fa fa-calendar"></i>&nbsp;
+                            <span></span> <i class="fa fa-caret-down"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="focusedinput" class="col-sm-5 control-label">Tra cứu theo tài khoản: </label>
+                    <div class="col-sm-4">
+                        <select id="agencyId" class="form-control">
+                            <option value="0" disabled selected>Chọn đại lý</option>
+                            <option value="{{agen.ID}}" ng-repeat="agen in agencies">{{agen.Displayname}}</option>
+                        </select>
+                        <p style="padding-top: 10px">bỏ trống nếu lấy lịch sử giao dịch cá nhân</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="submit" class="btn btn-default" ng-click="get(0)">Thống kê dữ liệu</button>
+                    </div>
+                </div>
+            </form>
+            <div class="row" ng-if="data.length">
+                <div class="col-sm-3">
+                    <button type="submit" class="btn btn-default" ng-click="dl()">Tải về kết quả</button>
+                </div>
+            </div>
+            <div class="row table-responsive bs-example">
+                <table class="table table-bordered" id="tableData" ng-table="trans">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ngày</th>
+                            <th>Mã giao dịch</th>
+                            <th>Số lượng</th>
+                            <th>Phế</th>
+                            <th>Người gửi</th>
+                            <th>Người nhận</th>
+                            <th>Mô tả</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in data">
+                            <th scope="row">{{$index + curPage * 50 + 1}}</th>
+                            <td>{{x.CreatedTime | formatDate}}</td>
+                            <td>{{x.ReferId}}</td>
+                            <td>{{x.Amount | parseMoney}}</td>
+                            <td>{{x.Fee | parseMoney}}</td>
+                            <td>{{x.Sender}}</td>
+                            <td>{{x.Recv}}</td>
+                            <td>{{x.Description}}</td>
+                            <td>
+                                <div class="col-md-5">
+                                    {{getState(x.State)}}
+                                </div>
+                                <div class="col-md-5">
+                                    <a href="javascript:;" data-toggle="modal" data-target="#edit" ng-click="select(x)">Sửa</a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="border: 1px solid #e3e3e3;" ng-if="data.length">
+                    <div class="col-md-6" style="padding: 15px;">
+                        <strong>Tổng luồng tiền: {{totalMoney | parseMoney}}</strong>
+                    </div>
+                    <div class="col-md-6" style="padding: 15px;">
+                        <strong>Tổng phế: {{totalFee | parseMoney}}</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 pull-right" ng-if="data.length">
+                    <button type="button" class="btn btn-primary pull-left col-md-5" ng-click="prev()" ng-show="curPage >= 1">Trước</button>
+                    <button type="button" class="btn btn-primary pull-right col-md-5" ng-click="next()">Sau</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="modal fade" id="edit" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Sửa thông tin</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="folder widget-shadow form-body">
+                            <select ng-model="state">
+                                <option value="0">Chưa thanh toán</option>
+                                <option value="1">Đã thanh toán</option>
+                                <option value="2">Nghi vấn</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="changeState()">Đồng ý</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+     function downloadURI(uri, name) {
+        var link = document.createElement("a");
+        link.download = name;
+        link.href = uri;
+        link.click();
+    }
+
+    function dl() {        
+        $window.open("@Url.Action("Download")?username=" + $("#userName").val() + "start=" + $("#start").val() + "&end=" + $("#end").val() + "&type=" + $("#optionValue").val(), new Date().getDate());
+    }
+
+    $(function () {
+        var start = moment();
+        var end = moment();
+
+        function cb(start, end) {
+            $('#reportrange span').html(start.format('DD/MM/YYYY') + ' - ' + end.format('DD/MM/YYYY'));
+            $('#start').val(start.format('YYYYMMDD'))
+            $('#end').val(end.format('YYYYMMDD'))
+        }
+
+        $('#reportrange').daterangepicker({
+            startDate: start,
+            endDate: end,
+            ranges: {
+                'Hôm nay': [moment(), moment()],
+                'Hôm qua': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                '7 ngày gần đây': [moment().subtract(6, 'days'), moment()],
+                '30 ngày gần đây': [moment().subtract(29, 'days'), moment()],
+                'Tháng này': [moment().startOf('month'), moment().endOf('month')],
+                'Tháng trước': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            opens: 'left'
+        }, cb);
+
+        cb(start, end);
+    });
+</script>

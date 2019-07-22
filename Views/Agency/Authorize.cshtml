@@ -1,0 +1,114 @@
+﻿<style>
+    .folder input {
+        margin: 10px auto;
+        min-width: 100%
+    }
+
+    .chat-grid input {
+        margin: 5px auto;
+        min-width: 100%
+    }
+
+    .chat-grid {
+        padding: 10px;
+    }
+
+    .folder {
+        padding: 10px;
+    }
+
+    .list-group-item {
+        padding: 5px !important;
+    }
+</style>
+<script src="~/Scripts/apps/Agency/agencyAuthorize.js"></script>
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="agencyAuthorize" ng-init="init()">
+    <div class="main-page">
+        <div class="row">
+            <div class="col-md-4 compose-left">
+                <div class="folder widget-shadow">
+                    <ul>
+                        <li class="head"><i class="fa fa-search" aria-hidden="true"></i>Tìm tài khoản ủy quyền</li>
+                        <li><input type="text" class="form-control" ng-model="accountname" placeholder="Tên hiển thị" required=""></li>
+                        <li><input type="text" class="form-control" ng-model="username" placeholder="Tên đăng nhập" required=""></li>
+                        <li><input type="text" class="form-control" ng-model="accountid" placeholder="Id tài khoản" required=""></li>
+                        <li><input type="text" class="form-control" ng-model="phonenumber" placeholder="Số điện thoại" required=""></li>
+                        <li><input type="button" class="btn btn-primary" value="Tìm kiếm" ng-click="search()" /></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8 compose-right widget-shadow">
+                <div class="panel-default">
+                    <div class="panel-heading">
+                        Kết quả tìm kiếm
+                    </div>
+                    <div class="inbox-page">
+                        <h4 ng-show="result == null || result.length == 0">Không có kết quả nào phù hợp</h4>
+                        <div class="card card-contact-list" ng-show="result != null && result.length > 0">
+                            <div class="agileinfo-cdr">
+                                <div class="card-header">
+                                    <h3>Tìm thấy {{result.length}} kết quả</h3>
+                                </div>
+                                <hr class="widget-separator">
+                                <div class="card-body p-b-20">
+                                    <div class="list-group" ng-repeat="x in result">
+                                        <a class="list-group-item media" href="javacript:" ng-click="select(x)">
+                                            <div class="pull-left">
+                                                <img class="lg-item-img" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <div class="pull-left">
+                                                    <div class="lg-item-heading">{{x.DisplayName}}</div>
+                                                    <small class="lg-item-text">{{x.Username}}</small>
+                                                </div>
+                                                <div class="pull-right">
+                                                    <div class="lg-item-heading">{{x.UserType == 1 ? "Tài khoản thường" : "Tài khoản facebook"}}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <br />
+        <div class="row" ng-if="selected.AccountID">
+            <div class="col-md-2 compose-left">
+                <h2 class="title1">Ủy quyền đại lý</h2>
+                <div class="folder widget-shadow">
+                    <ul>
+                        <li class="head"><i class="fa fa-plus-square" aria-hidden="true"></i>Ủy quyền đại lý</li>
+                        <li><p>Tên hiển thị: </p><input type="text" class="form-control" ng-model="displayName" placeholder="Tên hiển thị" required=""></li>
+                        <li><p>SĐT: </p><input type="text" class="form-control" id="agencyTel" placeholder="Số điện thoại" required=""></li>
+                        <li><p>Facebook: </p><input type="text" class="form-control" ng-model="fb" placeholder="Facebook Link" required=""></li>
+                        <li><p>Telegram: </p><input type="text" class="form-control" ng-model="tele" placeholder="Telegram Link" required=""></li>
+                        <li><p>Địa chỉ: </p><input type="text" class="form-control" ng-model="address" placeholder="Địa chỉ" required=""></li>
+                        <li><input type="button" class="btn btn-primary" style="min-width: 100% !important" value="Uỷ quyền đại lý" ng-click="openAdd()" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Ủy quyền đại lý</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Xác nhận ủy quyền đại lý cho tài khoản <strong>{{selected.DisplayName}}</strong> ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="authorize()">Đồng ý</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

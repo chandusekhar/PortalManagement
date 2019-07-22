@@ -1,0 +1,99 @@
+﻿<script src="~/Scripts/apps/Giftcode/gcManagement.js"></script>
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="gcManagement">
+    <div class="main-page">
+        <h2 class="title1">Quản trị Giftcode</h2>
+        <div class="row">
+            <select class=" col-md-2 pull-left" ng-model="type">
+                <option value="" disabled selected>Chọn loại giftcode</option>
+                <option value="1">Đại lý</option>
+                <option value="2">MKT/Cộng đồng</option>
+                <option value="0">Test</option>
+            </select>
+            <button type="button" class="btn btn-primary col-md-1" ng-click="getEvents(1)" style="margin-left: 50px">Tìm</button>
+        </div>
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ngày</th>
+                            <th>Tên GC</th>
+                            <th>Loại</th>
+                            <th>Xóa</th>
+                            <th>Gia hạn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in data">
+                            <th scope="row">{{$index + 1}}</th>
+                            <td>{{x.CreatedTime | formatDateOnly}}</td>
+                            <td>{{x.Name}}</td>
+                            <td>{{x.TypeStr}}</td>
+                            <td><a href="#" ng-click="openDelete(x.ID)">Xóa</a></td>
+                            <td><a href="#" ng-click="openExtend(x.ID)">Gia hạn</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-3 pull-right">
+            <button type="button" class="btn btn-primary pull-left col-md-5" ng-click="prev()" ng-show="curPage >= 1">Trước</button>
+            <button type="button" class="btn btn-primary pull-right col-md-5" ng-click="next()">Sau</button>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteEvent" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Xóa giftcode</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Xác nhận xóa Giftcode ?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="deleteEvent()" data-dismiss="modal">Xóa</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="extendGC" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Gia hạn Giftcode</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Ngày hết hạn mới: </p>
+                    <input type="text" class="form-control date-picker" id="newDt" placeholder="Hạn sử dụng" required="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="extendEvent()" data-dismiss="modal">Gia hạn</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('.date-picker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            changeDay: true,
+            showButtonPanel: true,
+            dateFormat: 'mm-dd-yy',
+            onClose: function (dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay));
+            },
+        });
+
+        $(".date-picker").datepicker("setDate", new Date());
+    });
+</script>

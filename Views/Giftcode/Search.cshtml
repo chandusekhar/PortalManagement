@@ -1,0 +1,156 @@
+﻿<style>
+    .folder input {
+        margin: 10px auto;
+        min-width: 100%
+    }
+
+    .chat-grid input {
+        margin: 5px auto;
+        min-width: 100%
+    }
+
+    .chat-grid {
+        padding: 10px;
+    }
+
+    .folder {
+        padding: 10px;
+    }
+
+    .list-group-item {
+        padding: 5px !important;
+    }
+</style>
+<script src="~/Scripts/apps/Giftcode/gc.js"></script>
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="gc">
+    <div class="main-page">
+        <h2 class="title1">Tra cứu giftcode</h2>
+        <div class="col-md-4 compose-left">
+            <div class="folder widget-shadow">
+                <ul>
+                    <li class="head"><i class="fa fa-search" aria-hidden="true"></i>Filter</li>
+                    <li><input type="text" class="form-control" ng-model="gCode" placeholder="Nhập code" required=""></li>
+                    <li><input type="button" class="btn btn-primary" value="Tìm kiếm" ng-click="search()" /></li>
+                </ul>
+            </div>
+
+            <div class="chat-grid widget-shadow" ng-show="selected != null && result != null && result.length != 0" id="selectedInfo">
+                <ul>
+                    <li class="head"><i class="fa fa-user" aria-hidden="true"></i>Thông tin chi tiết </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>Code</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{selected.Code}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>Trạng thái</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{selected.StatusStr}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>Ngày tạo</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{selected.CreatedTime | formatDate}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>Ngày hết hạn</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{selected.Expired | formatDate}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>TK Sử dụng</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{selected.AccountName}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>Thời gian sử dụng</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{selected.UsedTime | formatDate}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8 compose-right widget-shadow" id="resultSearch">
+            <div class="panel-default">
+                <div class="panel-heading">
+                    Kết quả tìm kiếm
+                </div>
+                <div class="inbox-page">
+                    <h4 ng-show="result == null || result.length == 0">Không có kết quả nào phù hợp</h4>
+                    <div class="card card-contact-list" ng-show="result != null && result.length > 0">
+                        <div class="agileinfo-cdr">
+                            <div class="card-header">
+                                <h3>Tìm thấy {{result.length}} kết quả</h3>
+                            </div>
+                            <hr class="widget-separator">
+                            <div class="card-body p-b-20">
+                                <div class="list-group" ng-repeat="x in result">
+                                    <a class="list-group-item media" href="javacript:" ng-click="selectGiftcode(x)">
+                                        <div class="pull-left">
+                                            <img class="lg-item-img" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="pull-left">
+                                                <div class="lg-item-heading">Code: {{x.Code}}</div>
+                                                <div class="lg-item-text">EventID: {{x.EventID}}</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>

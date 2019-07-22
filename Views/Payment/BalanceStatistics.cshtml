@@ -1,0 +1,65 @@
+﻿@using System.Globalization
+@model IEnumerable<PortalManagement.Models.Bussiness.Payment.BalanceStatitic>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="pm" ng-init="getCurrentLog()">
+    <div class="main-page">
+        <h2 class="title1">Thống kê số dư tính đến 24h trong ngày</h2>
+
+        <div class="table row col-md-10">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Tổng số dư còn lại của user</th>
+                            <th>Tổng số dư còn lại của đại lý</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Date</td>
+                                @if (item.TotalUserBalance > 999)
+                                {
+                                    <td>@item.TotalUserBalance.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                                }
+                                else
+                                {
+                                    <td>@item.TotalUserBalance</td>
+                                }
+                                @if (item.TotalPartnerBalance > 999)
+                                {
+                                    <td>@item.TotalPartnerBalance.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                                }
+                                else
+                                {
+                                    <td>@item.TotalPartnerBalance</td>
+                                }
+                            </tr>
+                        }
+                            <tr>
+                                <td>Tổng</td>
+                                @if (ViewBag.TotalAllUserBalance > 999)
+                                {
+                                    <td>@ViewBag.TotalAllUserBalance.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                                }
+                                else
+                                {
+                                    <td>@ViewBag.TotalAllUserBalance</td>
+                                }
+                                @if (@ViewBag.TotalAllPartnerBalance > 999)
+                                {
+                                    <td>@ViewBag.TotalAllPartnerBalance.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                                }
+                                else
+                                {
+                                    <td>@ViewBag.TotalAllPartnerBalance</td>
+                                }
+                            </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

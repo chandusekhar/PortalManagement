@@ -1,0 +1,170 @@
+D:\CMS Rồng\PortalManagement\obj\Debug\PortalManagement.csproj.CoreCompileInputs.cache
+D:\CMS Rồng\PortalManagement\bin\PortalManagement.dll.config
+D:\CMS Rồng\PortalManagement\bin\PortalManagement.dll
+D:\CMS Rồng\PortalManagement\bin\PortalManagement.pdb
+D:\CMS Rồng\PortalManagement\bin\roslyn\csc.exe
+D:\CMS Rồng\PortalManagement\bin\roslyn\csc.exe.config
+D:\CMS Rồng\PortalManagement\bin\roslyn\csc.rsp
+D:\CMS Rồng\PortalManagement\bin\roslyn\csi.exe
+D:\CMS Rồng\PortalManagement\bin\roslyn\csi.exe.config
+D:\CMS Rồng\PortalManagement\bin\roslyn\csi.rsp
+D:\CMS Rồng\PortalManagement\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\CMS Rồng\PortalManagement\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\CMS Rồng\PortalManagement\bin\roslyn\Microsoft.Win32.Primitives.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.AppContext.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Console.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Diagnostics.Process.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.IO.Compression.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.IO.Pipes.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Reflection.Metadata.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Security.AccessControl.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Security.Claims.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Security.Principal.Windows.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Threading.Thread.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.ValueTuple.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Xml.XmlDocument.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Xml.XPath.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\vbc.exe
+D:\CMS Rồng\PortalManagement\bin\roslyn\vbc.exe.config
+D:\CMS Rồng\PortalManagement\bin\roslyn\vbc.rsp
+D:\CMS Rồng\PortalManagement\bin\roslyn\VBCSCompiler.exe
+D:\CMS Rồng\PortalManagement\bin\roslyn\VBCSCompiler.exe.config
+D:\CMS Rồng\PortalManagement\bin\Dapper.dll
+D:\CMS Rồng\PortalManagement\bin\ExcelLibrary.dll
+D:\CMS Rồng\PortalManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\CMS Rồng\PortalManagement\bin\Microsoft.Owin.dll
+D:\CMS Rồng\PortalManagement\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\CMS Rồng\PortalManagement\bin\Microsoft.Web.Infrastructure.dll
+D:\CMS Rồng\PortalManagement\bin\Newtonsoft.Json.dll
+D:\CMS Rồng\PortalManagement\bin\NLog.dll
+D:\CMS Rồng\PortalManagement\bin\Owin.dll
+D:\CMS Rồng\PortalManagement\bin\System.Net.Http.Formatting.dll
+D:\CMS Rồng\PortalManagement\bin\System.Web.Helpers.dll
+D:\CMS Rồng\PortalManagement\bin\System.Web.Http.dll
+D:\CMS Rồng\PortalManagement\bin\System.Web.Http.WebHost.dll
+D:\CMS Rồng\PortalManagement\bin\System.Web.Mvc.dll
+D:\CMS Rồng\PortalManagement\bin\System.Web.Razor.dll
+D:\CMS Rồng\PortalManagement\bin\System.Web.Webpages.Deployment.dll
+D:\CMS Rồng\PortalManagement\bin\System.Web.Webpages.dll
+D:\CMS Rồng\PortalManagement\bin\System.Web.Webpages.Razor.dll
+D:\CMS Rồng\PortalManagement\bin\Dapper.xml
+D:\CMS Rồng\PortalManagement\bin\Microsoft.Owin.xml
+D:\CMS Rồng\PortalManagement\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\CMS Rồng\PortalManagement\bin\NLog.xml
+D:\CMS Rồng\PortalManagement\bin\System.Web.Razor.xml
+D:\CMS Rồng\PortalManagement\bin\System.Web.Webpages.xml
+D:\CMS Rồng\PortalManagement\bin\System.Web.Webpages.Deployment.xml
+D:\CMS Rồng\PortalManagement\bin\System.Web.Webpages.Razor.xml
+D:\CMS Rồng\PortalManagement\bin\System.Web.Helpers.xml
+D:\CMS Rồng\PortalManagement\bin\System.Web.Mvc.xml
+D:\CMS Rồng\PortalManagement\bin\Newtonsoft.Json.xml
+D:\CMS Rồng\PortalManagement\bin\System.Net.Http.Formatting.xml
+D:\CMS Rồng\PortalManagement\bin\System.Web.Http.xml
+D:\CMS Rồng\PortalManagement\bin\System.Web.Http.WebHost.xml
+D:\CMS Rồng\PortalManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\CMS Rồng\PortalManagement\obj\Debug\PortalManagement.csproj.CopyComplete
+D:\CMS Rồng\PortalManagement\obj\Debug\PortalManagement.dll
+D:\CMS Rồng\PortalManagement\obj\Debug\PortalManagement.pdb
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.IO.FileSystem.dll
+D:\CMS Rồng\PortalManagement\bin\roslyn\System.Collections.Immutable.dll
+D:\CMS Rồng\PortalManagement\obj\Debug\PortalManagement.csprojAssemblyReference.cache
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\obj\Debug\PortalManagement.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\obj\Debug\PortalManagement.pdb
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\PortalManagement.dll.config
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\PortalManagement.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\PortalManagement.pdb
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\csc.exe
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\csc.exe.config
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\csc.rsp
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\csi.exe
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\csi.exe.config
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\csi.rsp
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.AppContext.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Console.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Diagnostics.Process.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.IO.Compression.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.IO.Pipes.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Security.Claims.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Threading.Thread.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.ValueTuple.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Xml.XPath.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\vbc.exe
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\vbc.exe.config
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\vbc.rsp
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\VBCSCompiler.exe
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\Dapper.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\Microsoft.Owin.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\Newtonsoft.Json.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\Owin.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\System.Net.Http.Formatting.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\System.Web.Http.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\System.Web.Http.WebHost.dll
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\Dapper.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\Microsoft.Owin.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\NLog.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\System.Web.Razor.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\System.Web.Webpages.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\System.Web.Webpages.Deployment.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\System.Web.Webpages.Razor.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\System.Web.Helpers.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\System.Web.Mvc.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\Newtonsoft.Json.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\System.Net.Http.Formatting.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\System.Web.Http.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\System.Web.Http.WebHost.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\obj\Debug\PortalManagement.csprojAssemblyReference.cache
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\obj\Debug\PortalManagement.csproj.CoreCompileInputs.cache
+C:\Users\Dien Nguyen\Google Drive\DEV_CODE\GAME_SLOT\PortalManagement\obj\Debug\PortalManagement.csproj.CopyComplete

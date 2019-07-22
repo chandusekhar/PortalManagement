@@ -1,0 +1,119 @@
+﻿<style>
+    .folder input {
+        margin: 10px auto;
+        min-width: 100%
+    }
+
+    .chat-grid input {
+        margin: 5px auto;
+        min-width: 100%
+    }
+
+    .chat-grid {
+        padding: 10px;
+    }
+
+    .folder {
+        padding: 10px;
+    }
+
+    .list-group-item {
+        padding: 5px !important;
+    }
+
+    select:required:invalid {
+        color: gray;
+    }
+
+    option[value=""][disabled] {
+        display: none;
+    }
+
+    option {
+        color: black;
+    }
+</style>
+<script src="~/Scripts/apps/Giftcode/gc.js"></script>
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="gc" ng-init="init()">
+    <div class="main-page">
+        <h2 class="title1">Thêm Giftcode</h2>
+        <div class="col-md-2 compose-left">
+            <div class="folder widget-shadow">
+                <ul>
+                    <li class="head"><i class="fa fa-plus-square" aria-hidden="true"></i>Thêm đợt GC mới</li>
+                    <li><span class="minusGameFund" style="background-color:red;font-weight: 600;">Quỹ trừ phế game: {{minusGameFund | parseMoney}}</span></li>
+                    <li ng-if="agencies.length">
+                        <select id="agencyId" class="form-control">
+                            <option value="" disabled selected>Chọn đại lý</option>
+                            <option ng-repeat="agency in agencies" value="{{agency.ID}}">{{agency.Displayname}}</option>
+                        </select>
+                    </li>
+                    <li><input type="number" min="0" class="form-control" ng-model="total" placeholder="Số lượng" required=""></li>
+                    <li><input type="text" class="form-control" ng-model="prefix" placeholder="Tiền tố" required=""></li>
+                    <li><input type="text" class="form-control" ng-model="name" placeholder="Tên sự kiện" required=""></li>
+                    <li><input type="number" min="0" class="form-control" ng-model="price" placeholder="Mệnh giá" required=""></li>
+                    <li><input type="text" class="form-control date-picker" id="date" placeholder="Hạn sử dụng" required=""></li>
+                    <li>
+                        <select ng-model="type" class="form-control">
+                            <option value="" disabled selected>Chọn loại Giftcode</option>
+                            <option value="0">Test</option>
+                            <option value="1">Đại lý</option>
+                            <option value="2">MKT/Cộng đồng</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label style="display: inline-block;">Dùng quỹ trừ quỹ game</label>
+                        <div style="display: inline-block;margin-left: 10px;">
+                            <input type="checkbox" ng-model="isUseFund">
+                        </div>
+                    </li>
+                    <li><input class="btn btn-primary" type="button" value="Thêm đợt mới" ng-click="gen()" /></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10 compose-right">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Event</th>
+                            <th>Mệnh giá</th>
+                            <th>Tổng số GC</th>
+                            <th>Số lượng đã sử dụng</th>
+                            <th>Chi tiết</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in events">
+                            <th scope="row">{{$index + 1}}</th>
+                            <td>{{x.Name}}</td>
+                            <td>{{x.Price | parseMoney}}</td>
+                            <td>{{x.Total | parseMoney}}</td>
+                            <td>{{x.Used | parseMoney}}</td>
+                            <td><a target="_blank" href="@Url.Action("Analytic")?id={{x.ID}}">Chi tiết</a></td>
+                            <td><button class="btn btn-primary" type="button" ng-click="dl(x.ID)"><i class="fa fa-download"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('.date-picker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            changeDay: true,
+            showButtonPanel: true,
+            dateFormat: 'mm-dd-yy',
+            onClose: function (dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay));
+            },
+        });
+
+        $(".date-picker").datepicker("setDate", new Date());
+    });
+</script>

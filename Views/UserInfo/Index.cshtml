@@ -1,0 +1,518 @@
+﻿<style>
+    .folder input {
+        margin: 10px auto;
+        min-width: 100%
+    }
+
+    .chat-grid input {
+        margin: 5px auto;
+        min-width: 100%
+    }
+
+    .chat-grid {
+        padding: 10px;
+    }
+
+    .folder {
+        padding: 10px;
+    }
+
+    .list-group-item {
+        padding: 5px !important;
+    }
+</style>
+
+<script src="~/Scripts/apps/UserInfo/search.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="search">
+    <div class="main-page">
+        <h2 class="title1">Tra cứu thông tin người chơi</h2>
+        <div class="col-md-4 compose-left">
+            <div class="folder widget-shadow">
+                <ul>
+                    <li class="head"><i class="fa fa-search" aria-hidden="true"></i>Filter</li>
+                    <li><input type="text" class="form-control" ng-model="accountname" placeholder="Tên hiển thị" required=""></li>
+                    <li><input type="text" class="form-control" ng-model="username" placeholder="Tên đăng nhập" required=""></li>
+                    <li><input type="text" class="form-control" ng-model="accountid" placeholder="Id tài khoản" required=""></li>
+                    <li><input type="text" class="form-control" ng-model="phonenumber" placeholder="Số điện thoại" required=""></li>
+                    <li><input type="button" class="btn btn-primary" value="Tìm kiếm" ng-click="search()" /></li>
+                </ul>
+            </div>
+            <div class="chat-grid widget-shadow" ng-show="selected != null && result != null && result.length != 0" id="selectedInfo">
+                <ul>
+                    <li class="head"><i class="fa fa-user" aria-hidden="true"></i>Thông tin chi tiết </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>ID</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{selected.AccountID}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>Tên tài khoản</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{selected.Username}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>Loại tài khoản</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{selected.UserType == 1 ? "Tài khoản thường" : "Tài khoản facebook"}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>Số dư vàng</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{parseMoney(selected.Gold)}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>Số dư xu</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{parseMoney(selected.Coin)}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>Két vàng</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{parseMoney(selected.LockedGold)}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>Ngày tạo</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{selected.CreatedTime | formatDate}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>SĐT</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p>{{selected.Tel}}</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:;">
+                            <div class="pull-left">
+                                <p>Trạng thái bảo mật đăng nhập</p>
+                            </div>
+
+                            <div class="pull-right">
+                                <p ng-if="selected.IsOTP">Bật</p>
+                                <p ng-if="!selected.IsOTP">Tắt</p>
+                            </div>
+                            <div class="clearfix"> </div>
+                        </a>
+                    </li>
+                    <li ng-show="selected.IsOTP == true"><input type="button" class="btn btn-primary" value="Tắt bảo mật đăng nhập" data-toggle="modal" data-target="#offLoginOTP"></li>
+                    <li><input type="button" class="btn btn-primary" value="Cấp lại mật khẩu" data-toggle="modal" data-target="#changepass"></li>
+                    <li><input type="button" class="btn btn-primary" value="Reset mật khẩu" data-toggle="modal" data-target="#resetpass"></li>
+                    <li ng-show="selected.IsBlocked == false"><input type="button" class="btn btn-primary" value="Chặn đăng nhập" data-toggle="modal" data-target="#blockLogin"></li>
+
+                    <li ng-show="selected.IsBlocked == true"><input type="button" class="btn btn-primary" value="Mở khóa đăng nhập" data-toggle="modal" data-target="#unblockLogin"></li>
+
+                    <li ng-show="selected.IsMute == false"><input type="button" class="btn btn-primary" value="Khóa chat" data-toggle="modal" data-target="#blockChat"></li>
+
+                    <li ng-show="selected.IsMute == true"><input type="button" class="btn btn-primary" value="Mở khóa chat" data-toggle="modal" data-target="#unblockChat"></li>
+
+                    <li><input type="button" class="btn btn-primary" value="Lịch sử người chơi" data-toggle="modal" data-target="#history" ng-click="historyDefault()"></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8 compose-right widget-shadow" id="resultSearch">
+            <div class="panel-default">
+                <div class="panel-heading">
+                    Kết quả tìm kiếm
+                </div>
+                <div class="inbox-page">
+                    <h4 ng-show="result == null || result.length == 0">Không có kết quả nào phù hợp</h4>
+                    <div class="card card-contact-list" ng-show="result != null && result.length > 0">
+                        <div class="agileinfo-cdr">
+                            <div class="card-header">
+                                <h3>Tìm thấy {{result.length}} kết quả</h3>
+                            </div>
+                            <hr class="widget-separator">
+                            <div class="card-body p-b-20">
+                                <div class="list-group" ng-repeat="x in result">
+                                    <a class="list-group-item media" href="javacript:" ng-click="selectUser(x)">
+                                        <div class="pull-left">
+                                            <img class="lg-item-img" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="pull-left">
+                                                <div class="lg-item-heading">{{x.DisplayName}}</div>
+                                                <small class="lg-item-text">{{x.Username}}</small>
+                                            </div>
+                                            <div class="pull-right">
+                                                <div class="lg-item-heading">{{x.UserType == 1 ? "Tài khoản thường" : "Tài khoản facebook"}}</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="modal fade" id="offLoginOTP" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Tắt bảo mật đăng nhập</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Xác nhận tắt bảo mật đăng nhập OTP ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click="OffLoginOTP()" data-dismiss="modal">Đồng ý</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="modal fade" id="resetpass" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Reset mật khẩu</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Xác nhận reset mật khẩu ?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click="ResetPassword()" data-dismiss="modal">Đồng ý</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div>
+            <div class="modal fade" id="changepass" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel">Cấp lại mật khẩu</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Xác nhận thay đổi mật khẩu và gửi thông báo về cho người chơi?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" ng-click="changePass()">đồng ý</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="modal fade" id="blockLogin" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel">Chặn đăng nhập</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Xác nhận chặn đăng nhập người chơi?</p>
+                            <br />
+                            <label>
+                                <span>Lí do: </span>
+                                <input type="text" class="form-control" id="blockReason" />
+                            </label>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" ng-click="BlockLogin()" data-dismiss="modal">đồng ý</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="modal fade" id="unblockLogin" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel">Chặn đăng nhập</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Xác nhận mở khóa đăng nhập người chơi?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" ng-click="UnBlockLogin()" data-dismiss="modal">đồng ý</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div>
+            <div class="modal fade" id="blockChat" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel">Chặn tán gẫu</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Xác nhận chặn tán gẫu người chơi?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" ng-click="BlockChat()" data-dismiss="modal">đồng ý</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="modal fade" id="unblockChat" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel">Chặn tán gẫu</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Xác nhận bỏ chặn tán gẫu người chơi?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" ng-click="UnBlockChat()" data-dismiss="modal">đồng ý</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">hủy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="modal fade" id="history" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel">Lịch sử</h4>
+                        </div>
+                        <div class="modal-body" style="padding:50px">
+                            <div class="general-grids grids-right widget-shadow">
+                                <ul id="myTabs" class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#hPlay" id="history-play" aria-controls="hPlay" role="tab" data-toggle="tab" aria-expanded="false" ng-click="getGameHistory(selected.AccountID, 0)">Lịch sử chơi</a></li>
+                                    <li role="presentation" class=""><a href="#hBalance" role="tab" id="history-balance" aria-controls="hBalance" data-toggle="tab" aria-expanded="false" ng-click="getBalanceHistory(selected.AccountID, 0)">Lịch sử số dư</a></li>
+                                    <li role="presentation" class=""><a href="#hLog" role="tab" id="history-log" aria-controls="hLog" data-toggle="tab" aria-expanded="false" ng-click="getLogin(selected.AccountID, 0)">Lịch sử đăng nhập</a></li>
+                                    <li role="presentation" class=""><a href="#hchargeLog" role="tab" id="history-chargelog" aria-controls="hLog" data-toggle="tab" aria-expanded="false" ng-click="getTopupHistory(selected.AccountID, 0)">Lịch sử nạp tiền</a></li>
+                                    <li role="presentation" class=""><a href="#hcashoutLog" role="tab" id="history-cashoutlog" aria-controls="hLog" data-toggle="tab" aria-expanded="false" ng-click="getCashoutHistory(selected.AccountID, 0)">Lịch sử đổi</a></li>
+                                </ul>
+                                <div id="myTabContent" class="tab-content scrollbar1">
+                                    <div role="tabpanel" class="tab-pane fade active in table-responsive" aria-labelledby="history-play" id="hPlay">
+                                        <p ng-show="historyPlay == null || historyPlay.length == 0">Không có kết quả nào</p>
+                                        <table class="table table-bordered" ng-show="historyPlay != null && historyPlay.length > 0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Game</th>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Giá trị</th>
+                                                    <th>Số dư</th>
+                                                    <th>Loại</th>
+                                                    <th>Mô tả</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="x in historyPlay">
+                                                    <th>{{x.Game}}</th>
+                                                    <td>{{x.CreatedTime | formatDate}}</td>
+                                                    <td>{{parseMoney(x.Amount)}}</td>
+                                                    <td>{{parseMoney(x.Balance)}}</td>
+                                                    <td>{{x.Type == 1 ? "+" : "-"}}</td>
+                                                    <td>{{x.Description}}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane fade table-responsive" aria-labelledby="history-balance" id="hBalance">
+                                        <p ng-show="balanceHistory == null || balanceHistory.length == 0">Không có kết quả nào</p>
+                                        <table class="table table-bordered" ng-show="balanceHistory != null && balanceHistory.length > 0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Số tiền</th>
+                                                    <th>Số dư mới</th>
+                                                    <th>Mô tả</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="x in balanceHistory">
+                                                    <td>{{x.CreatedTime | formatDate}}</td>
+                                                    <td>{{parseMoney(x.Amount)}}</td>
+                                                    <td>{{parseMoney(x.Balance)}}</td>
+                                                    <td>{{x.Description}}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade table-responsive" aria-labelledby="history-log" id="hLog">
+                                        <p ng-show="historyLog == null || historyLog.length == 0">Không có kết quả nào</p>
+                                        <table class="table table-bordered" ng-show="historyLog != null && historyLog.length > 0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ngày tạo</th>
+                                                    <th>IP</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="x in historyLog">
+                                                    <td>{{x.CreatedTime | formatDate}}</td>
+                                                    <th>{{x.IP}}</th>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane fade table-responsive" aria-labelledby="history-chargelog" id="hchargeLog">
+                                        <p ng-show="topupHistory == null || topupHistory.length == 0">Không có kết quả nào</p>
+                                        <table class="table table-bordered" ng-show="topupHistory != null && topupHistory.length > 0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Mệnh giá</th>
+                                                    <th>Quy đổi</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Số dư thay đổi (nếu có)</th>
+                                                    <th>Serial</th>
+                                                    <th>Mã thẻ</th>
+                                                    <th>Thời gian duyệt</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="x in topupHistory">
+                                                    <td>{{x.CreatedTime | formatDate}}</td>
+                                                    <td>{{parseMoney(x.Amount)}}</td>
+                                                    <td>{{parseMoney(x.ExchangeBalance)}}</td>
+                                                    <td>{{x.Status}}</td>
+                                                    <td>{{parseMoney(x.Balance)}}</td>
+                                                    <td>{{x.Serial}}</td>
+                                                    <td>{{x.Pin}}</td>
+                                                    <td ng-show="x.CommitTime != null">{{x.CommitTime | formatDate}}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div role="tabpanel" class="tab-pane fade table-responsive" aria-labelledby="history-cashoutlog" id="hcashoutLog">
+                                        <p ng-show="cashoutHistory == null || cashoutHistory.length == 0">Không có kết quả nào</p>
+                                        <table class="table table-bordered" ng-show="cashoutHistory != null && cashoutHistory.length > 0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Mệnh giá</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Số dư thay đổi (nếu có)</th>
+                                                    <th>Serial</th>
+                                                    <th>Thời gian duyệt</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="x in cashoutHistory">
+                                                    <td>{{x.CreatedTime | formatDate}}</td>
+                                                    <td>{{parseMoney(x.Amount)}}</td>
+                                                    <td>{{x.Status}}</td>
+                                                    <td>{{parseMoney(x.Balance)}}</td>
+                                                    <td>{{x.CardSerial}}</td>
+                                                    <td ng-show="x.VerifyTime != null">{{x.VerifyTime | formatDate}}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"> </div>
+
+                            <div style="padding-top: 10px;" class="col-md-3 pull-right">
+                                <button type="button" class="btn btn-primary pull-left col-md-5" ng-click="prev()" ng-show="curPage >= 1">Trước</button>
+                                <button type="button" class="btn btn-primary pull-right col-md-5" ng-click="next()">Sau</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,100 @@
+﻿
+<script src="~/Scripts/apps/Game/editfund.js"></script>
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="fund-edit" ng-init="getHistory()">
+    <div class="main-page">
+        <h2 class="title1">Điều chỉnh quỹ thưởng</h2>
+
+
+        <div class="form-body">
+            <div class="form-group">
+                <label>Chọn game: </label>
+                <select ng-model="game" ng-change="changeGame()">
+                    <option value="1">Nông trại</option>
+                    <option value="2">Mafia</option>
+                    <option value="3">Hải vương</option>
+                    <option value="4">Vua bão</option>
+                    @*<option value="5">Bom tấn</option>*@
+                    <option value="6">Minipoker</option>
+                    <option value="7">Cao thấp</option>
+                    @*<option value="8">Bầu cua</option>
+                    <option value="9">Xóc xóc</option>*@
+                </select>
+            </div>
+
+            <div class="form-group" ng-show="game != null && game != 8 && game != 9">
+                <label>Chọn phòng: </label>
+                <select id="selectRoom">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5" ng-show="game == 7">5</option>
+                </select>
+            </div>
+
+            <div class="form-group" ng-show="game != null">
+                <label>Trừ quỹ: </label>
+                <input type="number" placeholder="Nhập số" ng-model="fundChange"/>
+            </div>
+
+            <div class="form-group" ng-show="game != null">
+                <button class="btn btn-primary" data-target="#confirm-change" data-toggle="modal">Cập nhật</button>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <h2 class="title1">Lịch sử điều chỉnh quỹ thưởng</h2>
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Game</th>
+                            <th>Người sửa</th>
+                            <th>Giá trị</th>
+                            <th>Phòng</th>
+                            <th>Quỹ thưởng mới</th>
+                            <th>Thời gian</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in data">
+                            <td>{{$index + 1}}</td>
+                            <td>{{x.GameName}}</td>
+                            <td>{{x.AccountName}}</td>
+                            <td>{{x.Amount > 0 ? '-' : ''}}{{x.Amount | parseMoney}}</td>
+                            <td>{{x.RoomID}}</td>
+                            <td>{{x.Fund | parseMoney}}</td>
+                            <td>{{x.CreatedTime | formatDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div>
+        <div class="modal fade" id="confirm-change" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Xác nhận</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Xác nhận thay đổi quỹ thưởng với giá trị: <b>- {{fundChange | parseMoney}}</b>?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editFund()">đồng ý</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,107 @@
+﻿<script src="~/Scripts/apps/Agency/rewardInfo.js"></script>
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="rewardInfo" ng-init="init()">
+    <div class="main-page">
+        <div class="row">
+            <div class="form-group col-md-3" ng-if="agencies.length">
+                <p><b>Đại lý: </b></p>
+                <select id="agencyId" class="form-control">
+                    <option value="" disabled selected>Chọn đại lý</option>
+                    <option ng-repeat="agency in agencies" value="{{agency.GameAccountId}}">{{agency.Displayname}}</option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <p><b>Từ ngày: </b></p><input id="from" class="date-picker form-control" ng-model="from" />
+            </div>
+            <div class="form-group col-md-3">
+                <p><b>Đến ngày: </b></p><input id="to" class="date-picker form-control" ng-model="to" />
+            </div>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-primary" ng-click="get()" style="margin-left: 15px">Tra cứu</button>
+        </div>
+        <h2 class="title1">Thông tin nhận thưởng</h2>
+
+        <div class="table-responsive bs-example widget-shadow">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#Tuần</th>
+                        <th class="text-center">#Ngày</th>
+                        <th class="text-right">Luồng tiền khách hàng</th>
+                        <th class="text-right">Phần thưởng</th>
+                        <th class="text-right">Tổng luồng mua bán</th>
+                    </tr>
+                </thead>
+                <tbody ng-repeat="x in data">
+                    <tr ng-repeat="p in x.Items">
+                        <td rowspan="8" ng-if="$index == 0"><b>Tuần {{x.WeekName}}</b></td>
+                        <td class="text-center">{{p.CreatedDateStr}}</td>
+                        <td class="text-right">{{p.TotalMoney | parseMoney}}</td>
+                        <td></td>
+                        <td class="text-right">{{p.TotalTransaction | parseMoney}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-center"><b>Tổng tuần</b></td>
+                        <td class="text-right"><a href="#" ng-click="listTransAccount(x.WeekName)"><b>{{x.WeekTotalMoney | parseMoney}}</b></a></td>
+                        <td class="text-right"><b>{{x.Reward | parseMoney}}</b></td>
+                        <td class="text-right"><b>{{x.WeekTotalTransaction | parseMoney}}</b></td>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr style="background-color: lightyellow">
+                        <th colspan="2">Tổng các tuần: </th>
+                        <td class="text-right"><b>{{SumTotalMoney | parseMoney}}</b></td>
+                        <td class="text-right"><b>{{SumReward | parseMoney}}</b></td>
+                        <td class="text-right"><b>{{SumTransaction | parseMoney}}</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="modal fade" id="listTransactionAccount" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Danh sách tài khoản</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="table-responsive bs-example widget-shadow" style="max-height: 400px;">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ID</th>
+                                        <th>Tên hiển thị</th>
+                                        <th>Luồng tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="x in dataList">
+                                        <td>{{$index + 1}}</td>
+                                        <td>{{x.AccountId}}</td>
+                                        <td>{{x.DisplayName}}</td>
+                                        <td>{{x.TotalMoney | parseMoney}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#from').datepicker().datepicker("setDate", new Date());;
+        $("#to").datepicker().datepicker("setDate", new Date());;
+    });
+</script>

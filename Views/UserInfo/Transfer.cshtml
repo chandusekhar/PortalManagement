@@ -1,0 +1,140 @@
+﻿<style>
+    .folder input {
+        margin: 10px auto;
+        min-width: 100%
+    }
+
+    .chat-grid input {
+        margin: 5px auto;
+        min-width: 100%
+    }
+
+    .chat-grid {
+        padding: 10px;
+    }
+
+    .folder {
+        padding: 10px;
+    }
+
+    .list-group-item {
+        padding: 5px !important;
+    }
+</style>
+
+<script src="~/Scripts/apps/UserInfo/transfer.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="transfer">
+    <div class="main-page">
+        <h2 class="title1">Tra cứu lịch sử chuyển khoản</h2>
+        <div class="row">
+            <div class="col-md-4 compose-left">
+                <div class="folder widget-shadow">
+                    <ul>
+                        <li class="head"><i class="fa fa-search" aria-hidden="true"></i>Filter</li>
+                        <li><input type="number" class="form-control" ng-model="transactionId" placeholder="Mã giao dịch" required="" ng-change="clear()"></li>
+                        <li><input type="text" class="form-control" ng-model="accountid" placeholder="Id tài khoản" required=""></li>
+                        <li><input type="text" class="form-control" ng-model="displayName" placeholder="Tên hiển thị" required=""></li>
+                        <li><input type="text" class="form-control" ng-model="username" placeholder="Tên tài khoản" required=""></li>
+                        <li><input type="button" class="btn btn-primary" value="Tìm kiếm" ng-click="search()" /></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-8 compose-right widget-shadow" id="resultSearch" hidden>
+                <div class="panel-default">
+                    <div class="panel-heading">
+                        Kết quả tìm kiếm
+                    </div>
+                    <div class="inbox-page">
+                        <h4 ng-show="result == null || result.length == 0">Không có kết quả nào phù hợp</h4>
+                        <div class="card card-contact-list" ng-show="result != null && result.length > 0">
+                            <div class="agileinfo-cdr">
+                                <div class="card-header">
+                                    <h3>Tìm thấy {{result.length}} kết quả</h3>
+                                </div>
+                                <hr class="widget-separator">
+                                <div class="card-body p-b-20">
+                                    <div class="list-group" ng-repeat="x in result">
+                                        <a class="list-group-item media" href="javacript:" ng-click="selectUser(x)">
+                                            <div class="pull-left">
+                                                <img class="lg-item-img" src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg" alt="">
+                                            </div>
+                                            <div class="media-body">
+                                                <div class="pull-left">
+                                                    <div class="lg-item-heading">{{x.DisplayName}}</div>
+                                                    <small class="lg-item-text">{{x.Username}}</small>
+                                                </div>
+                                                <div class="pull-right">
+                                                    <div class="lg-item-heading">{{x.UserType == 1 ? "Tài khoản thường" : "Tài khoản facebook"}}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="chat-grid widget-shadow" ng-show="logs != null && logs.length != 0" id="selectedInfo">
+                <p id="noneResult" style="display: none;">Không có kết quả nào</p>
+                <table class="table table-bordered" ng-show="logs != null && logs.length > 0">
+                    <thead>
+                        <tr>
+                            <th>Mã phiên</th>
+                            <th>ID Gửi</th>
+                            <th>Tên tk gửi</th>
+                            <th>Id Nhận</th>
+                            <th>Tên tk nhận</th>
+                            <th>Thời gian</th>
+                            <th>Số tiền gửi</th>
+                            <th>Số tiền nhận</th>
+                            <th>Lí do</th>
+                            <th>Thu hồi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in logs">
+                            <th>{{x.ID}}</th>
+                            <th>{{x.SendID}}</th>
+                            <th>{{x.SendName}}</th>
+                            <th>{{x.RecvID}}</th>
+                            <th>{{x.RecvName}}</th>
+                            <td>{{x.CreatedTime | formatDate}}</td>
+                            <td>{{x.SendAmount | parseMoney}}</td>
+                            <td>{{x.RecvAmount | parseMoney}}</td>
+                            <td>{{x.Reason}}</td>
+                            <td><a href="#" ng-click="openRefundModal(x.ID)">Hoàn lại</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-3 pull-right" ng-if="logs.length">
+            <button type="button" class="btn btn-primary pull-left col-md-5" ng-click="prev()" ng-show="curPage >= 1">Trước</button>
+            <button type="button" class="btn btn-primary pull-right col-md-5" ng-click="next()">Sau</button>
+        </div>
+    </div>
+    <div class="modal fade" id="refundTransaction" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Hoàn giao dịch</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Xác nhận hoàn lại giao dịch phiên: {{curRefundID}} ?</p>
+                    <input type="text" class="form-control" ng-model="reason" placeholder="Lí do" required="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" ng-click="refundTransaction()" data-dismiss="modal">Đồng ý</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

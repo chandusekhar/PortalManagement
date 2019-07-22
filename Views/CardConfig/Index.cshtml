@@ -1,0 +1,73 @@
+﻿<script src="~/Scripts/apps/CardConfig/cardconfig.js"></script>
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="cardconfig" ng-init="getCards()">
+    <div class="main-page">
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow" style="padding: 20px;">
+                <h2 class="title1">Config thẻ nạp</h2>
+                <div class="table-responsive bs-example widget-shadow">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Loại thẻ</th>
+                                <th>Mệnh giá</th>
+                                <th class="text-center" width="90">Kích hoạt nạp</th>
+                                <th>Khuyến mại nạp</th>
+                                <th>Tỉ lệ nạp</th>
+                                <th class="text-center" width="90">Kích hoạt đổi</th>
+                                <th>Khuyến mại đổi</th>
+                                <th>Tỉ lệ đổi</th>
+                                <th>Pay VZ</th>
+                                <th>Pay BB2D</th>
+                                <th>Pay Timo</th>
+                                <th>Pay Khan</th>
+                                <th>Pay MB</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="x in datatable">
+                                <td>{{x.TypeStr}}</td>
+                                <td>{{parseMoney(x.Prize)}}</td>
+                                <td class="text-center" width="90">
+                                    <input type="checkbox" ng-model="x.Enable" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="x.Promotion" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="x.TopupRate" />
+                                </td>
+                                <td class="text-center" width="90">
+                                    <input type="checkbox" ng-model="x.EnableCashout" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="x.PromotionCashout" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" ng-model="x.CashoutRate" />
+                                </td>
+                                <td>
+                                    <input type="number" min="0" ng-model="x.Pay1" />
+                                </td>
+                                <td>
+                                    <input type="number" min="0" ng-model="x.Pay2" />
+                                </td>
+                                <td>
+                                    <input type="number" min="0" ng-model="x.Pay3" />
+                                </td>
+                                <td>
+                                    <input type="number" min="0" ng-model="x.Pay4" />
+                                </td>
+                                <td>
+                                    <input type="number" min="0" ng-model="x.Pay5" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-primary" ng-click="updateConfig()">Cập nhật</button>
+    </div>
+</div>
+
+

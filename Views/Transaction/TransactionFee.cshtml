@@ -1,0 +1,95 @@
+﻿<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+<script src="~/Scripts/apps/Transaction/transfee.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="transfee" ng-init="init()">
+    <div class="main-page">
+        <h2 class="title1">Thống kê phí chuyển khoản theo tháng</h2>
+        <div class="row">
+            <div class="form-group col-md-1">
+                <input type="hidden" id="month" ng-model="month" />
+                <input type="hidden" id="year" ng-model="year" />
+                <input name="startDate" id="startDate" class="date-picker col-md-12 pull-left" readonly />
+            </div>
+            <button type="button" class="btn btn-primary col-md-1" ng-click="get()" style="margin-left: 50px">Thống kê</button>
+        </div>
+        <div class="row">
+            <div class="col-md-2 compose-left">
+                <div class="table">
+                    <div class="table-responsive bs-example widget-shadow">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Ngày</th>
+                                    <th>Tổng phế chuyển khoản</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in data">
+                                    <th class="text-center">{{x.Date | formatDateOnly}}</th>
+                                    <td>{{x.TotalFee | parseMoney}}</td>
+                                    <td class="text-center"><a href="#" ng-click="showDetail(x.Date)">Chi tiết</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center"><b>Tổng: </b></td>
+                                    <td colspan="2"><b>{{sumFee | parseMoney}}</b></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-10 compose-right">
+                <div class="table" ng-if="curSelect">
+                    <div class="table-responsive bs-example widget-shadow">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">STT</th>
+                                    <th>Người chuyển</th>
+                                    <th>Người nhận</th>
+                                    <th>Phí chuyển khoản</th>
+                                    <th>Thời gian</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in dataDate">
+                                    <td class="text-center">{{$index + curPage * 30 + 1}}</td>
+                                    <td>{{x.SendName}}</td>
+                                    <td>{{x.RecvName}}</td>
+                                    <td>{{x.Fee | parseMoney}}</td>
+                                    <th>{{x.CreatedTime | formatDate}}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-md-3 pull-right" style="padding-top:20px">
+                    <button type="button" class="btn btn-primary pull-left col-md-5" ng-click="prev()" ng-show="curPage >= 1">Trước</button>
+                    <button type="button" class="btn btn-primary pull-right col-md-5" ng-click="next()">Sau</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('.date-picker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'mm - yy',
+            onClose: function (dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                $('#month').val(inst.selectedMonth + 1);
+                $('#year').val(inst.selectedYear);
+            }
+        });
+
+        $(".date-picker").datepicker("setDate", new Date());
+    });
+</script>

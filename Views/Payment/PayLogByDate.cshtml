@@ -1,0 +1,113 @@
+﻿@using System.Globalization
+@model IEnumerable<PortalManagement.Models.Bussiness.Payment.DatePayLog>
+@functions
+{
+
+    string GetCardname(int index)
+    {
+        switch (index)
+        {
+            case 1:
+                return "Viettel";
+            case 2:
+                return "Mobiphone";
+            case 3:
+                return "Vinaphone";
+            case 4:
+                return "Zing";
+            default:
+                return "undefined";
+        }
+    }
+
+
+}
+
+@*<div class="row">
+        <ul class="pagination">
+            @if (ViewBag.CurrentPage != 1)
+            {
+                <li class="page-item"><a class="page-link" href="javascript:;" onclick="cardInGame.LoadDatePayLog(@(ViewBag.CurrentPage - 1))">Previous</a></li>
+            }
+
+            <li class="page-item" active><a class="page-link active" href="javascript:;">@ViewBag.CurrentPage</a></li>
+            @if (ViewBag.CurrentPage != ViewBag.TotalPage)
+            {
+                <li class="page-item"><a class="page-link" href="javascript:;" onclick="cardInGame.LoadDatePayLog(@(ViewBag.CurrentPage + 1))">Next</a></li>
+            }
+
+        </ul>
+    </div>*@
+
+<div class="table row">
+    <div class="table-responsive bs-example widget-shadow">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Ngày</th>
+                    <th>Số tiền nạp thành công</th>
+                    <th>Số giao dịch thành công</th>
+                    <th>Số giao dịch thất bại</th>
+                    <th>Số giao dịch chờ xử lý</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.DateString</td>
+                            @if (item.TotalTopup > 1000)
+                            {
+                                <td>@item.TotalTopup.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                            }
+                            else
+                            {
+                                <td>@item.TotalTopup</td>
+                            }
+                            <td>@item.TotalSuccessTran</td>
+                            <td>@item.TotalFailTran</td>
+                            <td>@item.TotalPendingTran</td>
+                            <td><a href="javascript:;" target="_blank" onclick="cardInGame.openDetails(parseInt(@item.DateString.Split('/')[0]))">Xem chi tiết</a></td>
+
+                        </tr>
+                    }
+                }
+                <tr style="color: red">
+                    <td>Tổng</td>
+                    @if (@ViewBag.TotalTopup > 1000)
+                    {
+                        <td>@ViewBag.TotalTopup.ToString("0,0", CultureInfo.CreateSpecificCulture("el-GR"))</td>
+                    }
+                    else
+                    {
+                        <td>@ViewBag.TotalTopup</td>
+                    }
+                    <td>@ViewBag.TotalSuccessTran</td>
+                    <td>@ViewBag.TotalFailTran </td>
+                    <td>@ViewBag.TotalPendingTran</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    cardInGame = cardInGame || {};
+    cardInGame.openDetails = function (day) {
+
+        var month = parseInt($('#month').val());
+        var year = parseInt($('#year').val());
+        var pay = parseInt($("#paySelection").val());
+        var cardType = parseInt($("#cardTypeSelection").val());
+        var urlBuilder =  "@Url.Action("PayLogData")"  + "?day=" + day + "&month=" + month + "&year=" + year + "&pay=" + pay + "&type=" + cardType;
+        window.open(urlBuilder, '_blank');
+
+    }
+</script>
+
+
+
+
+

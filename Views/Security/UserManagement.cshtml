@@ -1,0 +1,109 @@
+﻿<style>
+    .folder input {
+        margin: 10px auto;
+        min-width: 100%
+    }
+
+    .chat-grid input {
+        margin: 5px auto;
+        min-width: 100%
+    }
+
+    .chat-grid {
+        padding: 10px;
+    }
+
+    .folder {
+        padding: 10px;
+    }
+
+    .list-group-item {
+        padding: 5px !important;
+    }
+</style>
+
+<script src="~/Scripts/apps/Security/security.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="security" ng-init="getAccounts()">
+    <div class="main-page">
+        <h2 class="title1">Thêm tài khoản quản trị</h2>
+        <div class="col-md-4 compose-left">
+            <div class="folder widget-shadow">
+                <ul>
+                    <li class="head"><i class="fa fa-search" aria-hidden="true"></i>Filter</li>
+                    <li><input type="text" class="form-control" ng-model="username" placeholder="Tên đăng nhập" required=""></li>
+                    <li><input type="text" class="form-control" ng-model="password" placeholder="Mật khẩu" required=""></li>
+                    <li><input type="button" class="btn btn-primary" value="Thêm tài khoản" ng-click="addAccount()" /></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8 compose-right widget-shadow" id="resultSearch">
+            <div class="panel-default">
+                <div class="panel-heading">
+                    Danh sách tài khoản
+                </div>
+                <div class="inbox-page">
+                    <h4 ng-show="accounts == null || accounts.length == 0">Không có kết quả nào phù hợp</h4>
+                    <div class="card card-contact-list" ng-show="accounts != null && accounts.length > 0">
+                        <div class="agileinfo-cdr">
+                            <div class="card-header">
+                                <h3>Tìm thấy {{accounts.length}} kết quả</h3>
+                            </div>
+                            <hr class="widget-separator">
+                            <div class="card-body p-b-20">
+                                <div class="list-group" ng-repeat="x in accounts">
+                                    <a class="list-group-item media">
+                                        <div class="media-body">
+                                            <div class="pull-left">
+                                                <div class="lg-item-heading">{{x.AccountName}}</div>
+                                                <small class="lg-item-text">{{x.AccountID}}</small>
+                                            </div>
+
+                                            <div class="pull-right" style="padding-left: 10px">
+                                                <div class="lg-item-heading">
+                                                    <button class="btn btn-primary" ng-click="getRoles(x.AccountID)" data-target="#confirm-change" data-toggle="modal">Phân quyền tính năng</button>
+                                                </div>
+                                            </div>
+
+                                            <div class="pull-right">
+                                                <div class="lg-item-heading">
+                                                    <button class="btn btn-primary" ng-click="deleteAccount(x.AccountID)">Xóa tài khoản</button>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="modal fade" id="confirm-change" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Phân quyền tài khoản</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group" ng-repeat="x in roles">
+                            <label class="col-md-6">{{x.Name}}</label>
+                            <input type="checkbox" ng-model="x.IsActive"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="updateRole()">đồng ý</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

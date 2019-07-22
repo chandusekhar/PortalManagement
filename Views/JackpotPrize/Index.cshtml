@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    input.form-control {
+        width: auto;
+    }
+
+</style>
+<div id="page-wrapper" style="min-height: 896px;">
+    <div class="main-page">
+        <h2 class="title1">Thiết lập nổ hũ</h2>
+        <div class="col-md-10">
+            <div class="box span12">
+                <div class="box-header" data-original-title="">
+                    <h2><i class="halflings-icon white edit"></i><span class="break"></span>Set Jackpot Prize</h2>
+                    <div class="box-icon">
+
+                    </div>
+                </div>
+                <div class="box-content">
+                    <form class="form-horizontal">
+                        <div class="control-group">
+                            <label class="control-label" for="jackpotprize_sel1">Game</label>
+                            <select class="form-control" id="jackpotprize_sel1" style="margin-left: 20px">
+                                <option value="1">Nông trại</option>
+                                <option value="2">Mafia</option>
+                                <option value="3">Minipoker</option>
+                                <option value="4">Vua bão</option>
+                                <option value="8">Hải vương</option>
+                            </select>
+                            <div id="availbleRoom">
+                                @Html.Action("AvailbleRoom", new {gameId = 1})
+                            </div>
+
+                        </div>
+
+                    
+
+                    </form>
+
+                </div>
+            </div><!--/span-->
+        </div>
+        <div class="col-md-4" style="top: 10px; left: 19px">
+            <button id="btn_jackpotPrize" type="button" class="btn btn-primary" onclick="OtherFeatures.SetJackpotPrize()">Thiết lập nổ hũ</button>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var OtherFeatures = new function () {
+        this.SetJackpotPrize = function () {
+            $('#btn_jackpotPrize').prop('disabled', true);
+            var gameId = parseInt($("#jackpotprize_sel1").val());
+            var roomId = parseInt($("#jackpotprize_sel2").val());
+            $.ajax({
+                type: "POST",
+                url: "JackpotPrize/SetJackpotPrize?gameId=" + gameId + "&roomId=" + roomId,
+                crossDomain: true,
+                dataType: "json",
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function (response) {
+                    if (response > 0)
+                        alert("Thiết lập nổ hũ thành công");
+                    else {
+                        alert("Có lỗi xảy ra | Response:" + response);
+                    }
+
+                    $('#btn_jackpotPrize').prop('disabled', false);
+                }
+            });
+        };
+    }
+    $(document).ready(function () {
+        $("#jackpotprize_sel1").change(function () {
+            var selectedId = parseInt($(this).val());
+            $("#availbleRoom").load("OtherFeatures/AvailbleRoom", { gameId: selectedId });
+        });
+    })
+</script>
+
+

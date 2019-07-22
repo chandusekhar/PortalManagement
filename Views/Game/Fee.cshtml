@@ -1,0 +1,96 @@
+﻿<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+
+
+<script src="~/Scripts/apps/Game/feeGame.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="fee">
+    <div class="main-page">
+        <h2 class="title1">Thống kê phế game</h2>
+
+        <div class="row">
+
+            <div class="form-group col-md-3">
+                <input type="hidden" id="start" />
+                <input type="hidden" id="end" />
+                <input name="daterange" id="startDate" class="date-picker col-md-12 pull-left" readonly />
+            </div>
+
+
+            <button type="button" class="btn btn-primary col-md-1" ng-click="getFee()" style="margin-left: 50px">Thống kê</button>
+        </div>
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Nông trại</th>
+                            <th>Mafia</th>
+                            <th>25 dòng</th>
+                            <th>Minipoker</th>
+                            <th>Bom tấn</th>
+                            <th>Cao thấp</th>
+                            <th>Tài xỉu</th>
+                            <th>Thần quay</th>
+                            <th>Bầu cua</th>
+                            <th>Ba cây</th>
+                            <th>Sâm đếm lá</th>
+                            <th>Xóc xóc</th>
+                            <th>Ba cây gà</th>
+                            <th>Sâm solo</th>
+                            <th>Tổng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in data">
+                            <td>{{x.Day}}</td>
+                            <td>{{parseMoney(x.Fees[1])}}</td>
+                            <td>{{parseMoney(x.Fees[2])}}</td>
+                            <td>{{parseMoney(x.Fees[3])}}</td>
+                            <td>{{parseMoney(x.Fees[4])}}</td>
+                            <td>{{parseMoney(x.Fees[6])}}</td>
+                            <td>{{parseMoney(x.Fees[7])}}</td>
+                            <td>{{parseMoney(x.Fees[8])}}</td>
+                            <td>{{parseMoney(x.Fees[9])}}</td>
+                            <td>{{parseMoney(x.Fees[10])}}</td>
+                            <td>{{parseMoney(x.Fees[11])}}</td>
+                            <td>{{parseMoney(x.Fees[15])}}</td>
+                            <td>{{parseMoney(x.Fees[16])}}</td>
+                            <td>{{parseMoney(x.Fees[21])}}</td>
+                            <td>{{parseMoney(x.Fees[35])}}</td>
+                            <td>{{parseMoney(x.Fees[1] + x.Fees[2] + x.Fees[3] + x.Fees[4]+ x.Fees[6] + x.Fees[7] + x.Fees[8]+ x.Fees[9] + x.Fees[10] + x.Fees[11] + x.Fees[15] + x.Fees[16] + x.Fees[21] + x.Fees[35])}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'right',
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, function (start, end, label) {
+            $('#start').val(start.format("YYYYMMDD"));
+            $('#end').val(end.format("YYYYMMDD"));
+        });
+
+        $('#start').val(moment().format("YYYYMMDD"));
+        $('#end').val(moment().format("YYYYMMDD"));
+    });
+</script>

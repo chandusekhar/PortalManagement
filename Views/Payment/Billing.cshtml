@@ -1,0 +1,97 @@
+﻿<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+<script src="~/Scripts/apps/Payment/billing.js"></script>
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="pmbilling" ng-init="init()">
+    <div class="main-page">
+        <h2 class="title1">Thống kê đổi nạp</h2>
+
+        <div class="row">
+            <div class="form-group col-md-3">
+                <input type="hidden" id="month" ng-model="month" />
+                <input type="hidden" id="year" ng-model="year" />
+                <input name="startDate" id="startDate" class="date-picker col-md-12 pull-left" readonly />
+            </div>
+            <button type="button" class="btn btn-primary col-md-1" ng-click="do()" style="margin-left: 50px">Thống kê</button>
+        </div>
+
+        <br />
+        <h2 class="title1">Thống kê nạp</h2>
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Card</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in resultTopup">
+                            <td>{{x.Date | formatDateOnly}}</td>
+                            <td>{{x.Amount | parseMoney}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="border: 1px solid #e3e3e3">
+                    <div class="col-md-1" style="margin: 10px">
+                        <strong>Tổng nạp: </strong>
+                    </div>
+                    <div class="col-md-4" style="margin: 10px">
+                        <strong>{{totalTopup | parseMoney}}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br />
+        <h2 class="title1">Thống kê đổi</h2>
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Card</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in resultCashout">
+                            <td>{{x.Date | formatDateOnly}}</td>
+                            <td>{{x.Amount | parseMoney}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="border: 1px solid #e3e3e3">
+                    <div class="col-md-1" style="margin: 10px">
+                        <strong>Tổng cashout: </strong>
+                    </div>
+                    <div class="col-md-4" style="margin: 10px">
+                        <strong>{{totalCashout | parseMoney}}</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('.date-picker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'mm - yy',
+            onClose: function (dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                $('#month').val(inst.selectedMonth + 1);
+                $('#year').val(inst.selectedYear);
+            }
+        });
+
+        $(".date-picker").datepicker("setDate", new Date());
+    });
+</script>

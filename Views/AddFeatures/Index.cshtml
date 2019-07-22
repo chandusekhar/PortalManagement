@@ -1,0 +1,87 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="page-wrapper" style="min-height: 896px;">
+    <div class="main-page">
+        <h2 class="title1">Nổ hũ game</h2>
+
+        <div class="col-md-10">
+            <div class="box span12">
+                <div class="box-header" data-original-title="">
+                    <h2><i class="halflings-icon white edit"></i></span>Sử dụng tên hiển thị để sử dụng tính năng</h2>
+                    <div class="box-icon">
+
+                    </div>
+                </div>
+                <div class="box-content">
+                    <form class="form-horizontal" action="@Url.Action("GetJackpotPrize")" method="post" id="addfeatures_form">
+                        <fieldset>
+                            <div class="control-group">
+                                <label class="control-label" for="focusedInput">Nhập tên hiển thị</label>
+                                <div class="controls">
+                                    <input class="input-xlarge focused" placeholder="Tên hiển thị" type="text" value="" name="addfeatures_displayname" id="addfeatures_displayname">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="addfeatures_gameselection">Chọn game</label>
+                                <select class="form-control" id="addfeatures_gameselection" name="gameselection">
+                                    <option value="1" selected="selected">Nông trại</option>
+                                    <option value="2" >Bố Già Mafia</option>
+                                    <option value="3" >Hải Vương</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="addfeatures_roomselection">Chọn phòng</label>
+                                <select class="form-control" id="addfeatures_roomselection" name="roomselection">
+                                    <option value="3" selected="selected">Phòng 5k</option>
+                                    <option value="4" >Phòng 10k</option>
+                                </select>
+                            </div>                          
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Thực hiện</button>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div><!--/span-->
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#addfeatures_form").submit(function (event) {
+         
+            event.preventDefault(); //prevent default action 
+            var post_url = $(this).attr("action"); //get form action url
+            var request_method = $(this).attr("method"); //get form GET/POST method
+            var form_data = $(this).serialize(); //Encode form elements for submission
+	
+            $.ajax({
+                url : post_url,
+                type: request_method,
+                data: form_data,
+                xhrFields: {
+                    withCredentials: true
+                },
+                crossDomain: true
+            }).done(function(response){ //
+                if (response > 0) {
+                    alert("Nổ hũ thành công");
+                } else {
+                    if (response == -1) {
+                        alert("Không đủ quỹ để nổ");
+                    } else if (response == -2) {
+                        alert("Bạn chưa nhập tên hiển thị");
+                    } else {
+                        alert("Có lỗi xảy ra");
+                    }
+                }
+            });
+        });
+    });
+</script>
+

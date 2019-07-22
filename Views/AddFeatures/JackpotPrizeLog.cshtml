@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "JackpotPrizeLog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using System.Globalization
+@model IEnumerable<PortalManagement.Models.Bussiness.AddFeatures.JackpotPrizeLog>
+
+<div id="page-wrapper" style="min-height: 896px;">
+    <div class="main-page">
+        <h2 class="title1">Thống kê nổ hũ</h2>
+
+        <div class="table row col-md-10">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>AccountID</th>
+                            <th>AccountName</th>
+                            <th>DisplayName</th>
+                            <th>JackpotPrize</th>
+                            <th>Balance</th>
+                            <th>IP</th>
+                            <th>Game</th>
+                            <th>CreatedBy</th>
+                            <th>CreatedTime</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.AccountID</td>
+                                <td>@item.AccountName</td>
+                                <td>@item.DisplayName</td>
+                                <td>@item.JackpotPrize</td>
+                                <td>@item.Balance</td>
+                                <td>@item.IpAddress</td>
+                                @if (item.GameID == 1)
+                                {
+                                    <td>Nông trại</td>
+                                }
+                                else if(item.GameID == 2)
+                                {
+                                    <td>Mafia</td>
+                                }
+                                else if (item.GameID == 3)
+                                {
+                                    <td>Hải Vương</td>
+                                }
+                                else
+                                {
+                                    <td>Đang cập nhật</td>
+                                }
+                                <td>@item.CreatedBy</td>
+                                <td>@item.CreatedTime.ToString("dd/MM/yyyy hh:mm:ss")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

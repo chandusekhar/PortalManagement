@@ -1,0 +1,186 @@
+﻿<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+
+<script src="~/Content/js/vendors/jquery.flot.js"></script>
+<link href="~/Content/css/graph.css" rel="stylesheet" />
+<script src="~/Scripts/apps/UserInfo/analytic.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="analytic" ng-init="init()">
+    <div class="main-page">
+        <h2 class="title1">Thống kê NRU, DAU, PU, CCU, Top đại gia</h2>
+        <div class="row">
+            <select class=" col-md-2 pull-left" ng-model="type" ng-change="changeType()">
+                <option value="1">NRU</option>
+                <option value="2">DAU</option>
+                <option value="3">PU</option>
+                <option value="4">CCU</option>
+                <option value="5">Top đại gia</option>
+            </select>
+
+            <div class="form-group col-md-1" ng-show="type != 5">
+                <input type="hidden" id="month" ng-model="month" />
+                <input type="hidden" id="year" ng-model="year" />
+                <input name="startDate" id="startDate" class="date-picker col-md-12 pull-left" readonly />
+            </div>
+
+
+            <button type="button" class="btn btn-primary col-md-1" ng-click="do()" style="margin-left: 50px">Thống kê</button>
+        </div>
+
+        <div class="table row" ng-show="type == 1">
+            <div class="table-responsive bs-example widget-shadow" style="padding: 20px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Daily NRU</th>
+                            <th>NRU IOS</th>
+                            <th>NRU ANDROID</th>
+                            <th>NRU WEB</th>
+                            <th>NRU EXE</th>
+                            <th>NRU OXS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in nruAna">
+                            <td>{{x.CreatedDate | formatDateOnly}}</td>
+                            <td>{{x.IOS + x.Android + x.Web + x.EXE + x.OSX | parseMoney}}</td>
+                            <td>{{x.IOS | parseMoney}}</td>
+                            <td>{{x.Android | parseMoney}}</td>
+                            <td>{{x.Web | parseMoney}}</td>
+                            <td>{{x.EXE | parseMoney}}</td>
+                            <td>{{x.OSX | parseMoney}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <table class="table table-striped table-bordered bootstrap-datatable datatable" style="color:black">
+                    <thead>
+                        <tr>
+                            <th>NRU Month</th>
+                            <th>Total: {{NRUMonth | parseMoney}}</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-3 widget" ng-show="type == 3 && puAna.length">
+            <div class="table-responsive bs-example widget-shadow" style="padding: 20px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ngày</th>
+                            <th>PU</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in puAna">
+                            <td>{{x.Date | formatDateOnly}}</td>
+                            <td>{{x.Total | parseMoney}}</td>
+                        </tr>
+                        <tr>
+                            <td>Tổng: </td>
+                            <td>{{x.PUMonth}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="table row" ng-show="type == 5">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tên đăng nhập</th>
+                            <th>Tên tài khoản</th>
+                            <th>Ngày tạo</th>
+                            <th>Đăng nhập cuối</th>
+                            <th>Số dư vàng</th>
+                            <th>Két vàng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in topBalance">
+                            <th scope="row">{{x.AccountID}}</th>
+                            <td>{{x.Username}}</td>
+                            <td>{{x.DisplayName}}</td>
+                            <td>{{x.CreatedTime | formatDate}}</td>
+                            <td>{{x.LastActive | formatDate}}</td>
+                            <td>{{parseMoney(x.Gold)}}</td>
+                            <td>{{parseMoney(x.LockedGold)}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-3 pull-right" ng-show="type == 5">
+            <button type="button" class="btn btn-primary pull-left col-md-5" ng-click="prev()" ng-show="curPage >= 1">Trước</button>
+            <button type="button" class="btn btn-primary pull-right col-md-5" ng-click="next()">Sau</button>
+        </div>
+
+        <div class="table row" ng-show="type == 2">
+            <div class="table-responsive bs-example widget-shadow" style="padding: 20px;">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Total DAU</th>
+                            <th>DAU IOS</th>
+                            <th>DAU ANDROID</th>
+                            <th>DAU WEB</th>
+                            <th>DAU EXE</th>
+                            <th>DAU OXS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in dauAna">
+                            <td>{{x.CreatedDate | formatDateOnly}}</td>
+                            <td>{{x.IOS + x.Android + x.Web + x.EXE + x.OSX | parseMoney}}</td>
+                            <td>{{x.IOS | parseMoney}}</td>
+                            <td>{{x.Android | parseMoney}}</td>
+                            <td>{{x.Web | parseMoney}}</td>
+                            <td>{{x.EXE | parseMoney}}</td>
+                            <td>{{x.OSX | parseMoney}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <table class="table table-striped table-bordered bootstrap-datatable datatable" style="color:black">
+                    <thead>
+                        <tr>
+                            <th>DAU Month</th>
+                            <th>Total: {{DAUMonth | parseMoney}}</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(function () {
+        $('.date-picker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'mm - yy',
+            onClose: function (dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                $('#month').val(inst.selectedMonth + 1);
+                $('#year').val(inst.selectedYear);
+            }
+        });
+
+        $(".date-picker").datepicker("setDate", new Date());
+    });
+</script>

@@ -1,0 +1,160 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/css/style.css" rel="stylesheet" />
+    <link href="~/Content/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/css/SidebarNav.min.css" rel="stylesheet" />
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
+    <link href="~/Content/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/Content/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/css/custom.css" rel="stylesheet" />
+
+    <script src="~/Content/js/vendors/jquery-1.11.1.min.js"></script>
+    <script src="~/Content/js/vendors/jquery-ui.min.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/apps/config.js"></script>
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    <style>
+        body.loading .loading-screen {
+            display: block;
+        }
+
+        .loading-screen {
+            display: none;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,.5);
+            z-index: 99999;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+            .loading-screen img {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-left: -60px;
+                margin-top: -60px;
+            }
+    </style>
+</head>
+<body class="cbp-spmenu-push" ng-app="game_cms">
+    <div class="main-content">
+        <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+            <aside class="sidebar-left">
+                <nav class="navbar navbar-inverse">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".collapse" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <h1><a class="navbar-brand" href="@Url.Action("Index", "Home")"><span class="fa fa-area-chart"></span> CMS<span class="dashboard_text">Quản trị hệ thống</span></a></h1>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="sidebar-menu">
+                            <li class="header">MAIN NAVIGATION</li>
+                            @{
+                                UserCategory userCategory = RoleBuilder.GetUserCategories();
+                                foreach (var category in userCategory.Headings)
+                                {
+                                    <li class="treeview">
+                                        <a href="javascript:void(0)">
+                                            <i class="@category.Icon"></i>
+                                            <span>@category.Name</span>
+                                            <i class="fa fa-angle-left pull-right"></i>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            @foreach (var sub in userCategory.SubHeading.Where(x => x.HeadID == category.ID))
+                                            {
+                                                <li><a href="@Url.Action(sub.Action, sub.Controller)"><i class="@sub.Icon"></i> @sub.Name</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </nav>
+            </aside>
+
+            <div class="sticky-header header-section ">
+                <div class="header-left">
+                    <button id="showLeftPush"><i class="fa fa-bars"></i></button>
+                    <div class="clearfix"> </div>
+                </div>
+
+                <div class="header-right">
+                    <div class="profile_details">
+                        <ul>
+                            <li class="dropdown profile_details_drop">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <div class="profile_img">
+                                        <div class="user-name">
+                                            <p>@UserContext.AccountName</p>
+                                        </div>
+                                        <i class="fa fa-angle-down lnr"></i>
+                                        <i class="fa fa-angle-up lnr"></i>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                                <ul class="dropdown-menu drp-mnu">
+                                    <li> <a href="@Url.Action("Index", "Logout")"><i class="fa fa-sign-out"></i> Đăng xuất</a> </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+
+    <div class="loading-screen">
+        <img src="~/Content/images/loading.svg" />
+    </div>
+
+    <script src="~/Content/js/vendors/metisMenu.min.js"></script>
+    <script src="~/Content/js/vendors/jquery.nicescroll.js"></script>
+    <script src="~/Content/js/vendors/SidebarNav.min.js"></script>
+    <script src="~/Content/js/vendors/scripts.js"></script>
+    <script src="~/Content/js/vendors/custom.js"></script>
+    <script src="~/Content/js/vendors/classie.js"></script>
+
+    <script>
+        var menuLeft = document.getElementById('cbp-spmenu-s1'),
+            showLeftPush = document.getElementById('showLeftPush'),
+            body = document.body;
+
+        showLeftPush.onclick = function () {
+            classie.toggle(this, 'active');
+            classie.toggle(body, 'cbp-spmenu-push-toright');
+            classie.toggle(menuLeft, 'cbp-spmenu-open');
+            disableOther('showLeftPush');
+        };
+
+
+        function disableOther(button) {
+            if (button !== 'showLeftPush') {
+                classie.toggle(showLeftPush, 'disabled');
+            }
+        }
+
+        $('.sidebar-menu').SidebarNav();
+
+    </script>
+    <script src="~/Content/js/vendors/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap-select.js"></script>
+    <script src="~/Scripts/apps/utils.js"></script>
+</body>
+</html>

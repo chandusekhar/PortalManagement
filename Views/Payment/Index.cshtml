@@ -1,0 +1,83 @@
+﻿<style>
+    .folder input {
+        margin: 10px auto;
+        min-width: 100%
+    }
+
+    .chat-grid input {
+        margin: 5px auto;
+        min-width: 100%
+    }
+
+    .chat-grid {
+        padding: 10px;
+    }
+
+    .folder {
+        padding: 10px;
+    }
+
+    .list-group-item {
+        padding: 5px !important;
+    }
+</style>
+
+
+<script src="~/Scripts/apps/Payment/pm.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="pm" ng-init="getCurrentLog()">
+    <div class="main-page">
+        <h2 class="title1">Cộng tiền và lịch sử nạp gần đây</h2>
+
+        <div class="col-md-2 compose-left">
+            <div class="folder widget-shadow">
+                <ul>
+                    <li class="head"><i class="fa fa-plus-square" aria-hidden="true"></i>Cộng tiền cho tài khoản</li>
+                    <li><input type="text" class="form-control" ng-model="accountName" placeholder="Tên tài khoản" required=""></li>
+                    <li><input type="number" min="0" class="form-control" ng-model="price" placeholder="Mệnh giá" required=""></li>
+                    <li>
+                        <select class="form-control" id="type">
+                            <option value="0" selected disabled hidden>Chọn lý do nạp</option>
+                            <option value="1">Nạp thẻ</option>
+                            <option value="2">Momo</option>
+                            <option value="3">Đại lý</option>
+                            <option value="4">Lỗi game</option>
+                        </select>
+                    </li>
+                    <li><input type="text" class="form-control" placeholder="Chi tiết lý do" ng-model="detail" required=""></li>
+                    <li><input type="button" class="btn btn-primary" value="Cộng tiền cho tài khoản" ng-click="add()" /></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="table row col-md-10 compose-right">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Ngày</th>
+                            <th>Loại nạp</th>
+                            <th>Mô tả</th>
+                            <th>Giá trị</th>
+                            <th>Tài khoản nạp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in datatable">
+                            <th scope="row">{{$index + 1}}</th>
+                            <td>{{x.CreatedTime}}</td>
+                            <td>{{castType(x.Type)}}</td>
+                            <td>{{x.Description}}</td>
+                            <td>{{parseMoney(x.Value)}}</td>
+                            <td>{{x.AccountName}}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

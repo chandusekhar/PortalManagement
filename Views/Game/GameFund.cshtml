@@ -1,0 +1,264 @@
+﻿@model PortalManagement.Controllers.Game.GameFundList
+
+<div id="page-wrapper" style="min-height: 896px;">
+    <div class="main-page">
+        <h2 class="title1">Nông trại</h2>
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Phòng</th>
+                            <th>Quỹ thưởng</th>
+                            <th>Jackpot</th>
+                            <th>Hạn mức âm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var d in Model.Slot1)
+                    {
+                        <tr>
+                            <td>@d.RoomID</td>
+                            <td>@d.PrizeFund.ToString("N0")</td>
+                            <td>@d.JackpotFund.ToString("N0")</td>
+                            <td>@d.LimitFund.ToString("N0")</td>
+                        </tr>
+                }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <h2 class="title1">Mafia</h2>
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Phòng</th>
+                            <th>Quỹ thưởng</th>
+                            <th>Jackpot</th>
+                            <th>Hạn mức âm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var d in Model.Slot2)
+                    {
+                        <tr>
+                            <td>@d.RoomID</td>
+                            <td>@d.PrizeFund.ToString("N0")</td>
+                            <td>@d.JackpotFund.ToString("N0")</td>
+                            <td>@d.LimitFund.ToString("N0")</td>
+                        </tr>
+                }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <h2 class="title1">Hải vương</h2>
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Phòng</th>
+                            <th>Quỹ thưởng</th>
+                            <th>Jackpot</th>
+                            <th>Hạn mức âm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var d in Model.Slot3)
+                    {
+                        <tr>
+                            <td>@d.RoomID</td>
+                            <td>@d.PrizeFund.ToString("N0")</td>
+                            <td>@d.JackpotFund.ToString("N0")</td>
+                            <td>@d.LimitFund.ToString("N0")</td>
+                        </tr>
+                }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <h2 class="title1">Vua bão</h2>
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Phòng</th>
+                            <th>Quỹ thưởng</th>
+                            <th>Jackpot</th>
+                            <th>Hạn mức âm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var d in Model.ThanQuay)
+                    {
+                        <tr>
+                            <td>@d.RoomID</td>
+                            <td>@d.PrizeFund.ToString("N0")</td>
+                            <td>@d.JackpotFund.ToString("N0")</td>
+                            <td>@d.LimitFund.ToString("N0")</td>
+                        </tr>
+                }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        @*<h2 class="title1">Bom tấn</h2>
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Phòng</th>
+                            <th>Quỹ thưởng</th>
+                            <th>Jackpot</th>
+                            <th>Hạn mức âm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var d in Model.SuperNova)
+                        {
+                            <tr>
+                                <td>@d.RoomID</td>
+                                <td>@d.PrizeFund.ToString("N0")</td>
+                                <td>@d.JackpotFund.ToString("N0")</td>
+                                <td>@d.LimitFund.ToString("N0")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>*@
+
+        <div class="clearfix"></div>
+
+        <h2 class="title1">Minipoker</h2>
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Phòng</th>
+                            <th>Quỹ thưởng</th>
+                            <th>Jackpot</th>
+                            <th>Hạn mức âm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var d in Model.Minipoker)
+                    {
+                        <tr>
+                            <td>@d.RoomID</td>
+                            <td>@d.PrizeFund.ToString("N0")</td>
+                            <td>@d.JackpotFund.ToString("N0")</td>
+                            <td>@d.LimitFund.ToString("N0")</td>
+                        </tr>
+                }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <h2 class="title1">Cao thấp</h2>
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Phòng</th>
+                            <th>Quỹ thưởng</th>
+                            <th>Jackpot</th>
+                            <th>Hạn mức âm dưới</th>
+                            <th>Hạn mức âm trên</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var d in Model.Hilo)
+                    {
+                        <tr>
+                            <td>@d.RoomID</td>
+                            <td>@d.PrizeFund.ToString("N0")</td>
+                            <td>@d.JackpotFund.ToString("N0")</td>
+                            <td>@d.MinFund.ToString("N0")</td>
+                            <td>@d.MaxFund.ToString("N0")</td>
+                        </tr>
+                }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <h2 class="title1">Bầu cua</h2>
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Quỹ thưởng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var d in Model.HooHeyHow)
+                        {
+                            <tr>
+                                <td>@d.Fund.ToString("N0")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <h2 class="title1">Xóc xóc</h2>
+
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Quỹ thưởng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var d in Model.DiskShaking)
+                        {
+                            <tr>
+                                <td>@d.Fund.ToString("N0")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

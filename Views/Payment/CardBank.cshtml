@@ -1,0 +1,99 @@
+﻿<script src="~/Scripts/apps/Payment/pmcardbank.js"></script>
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="pmcardbank" ng-init="init();">
+    <div class="main-page">
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow" style="padding: 20px;">
+                <h2 class="title1">Tình trạng kho thẻ</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>CardType</th>
+                            <th>Amount</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in datatable">
+                            <td>{{x.CardTypeStr}}</td>
+                            <td>{{parseMoney(x.Amount)}}</td>
+                            <td>{{x.Total}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-responsive bs-example widget-shadow" style="padding: 20px;">
+                <h2 class="title1">Các giao dịch mua thẻ lỗi từ PAY</h2>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>CardType</th>
+                            <th>Amount</th>
+                            <th>TradeMark</th>
+                            <th>BuyTime</th>
+                            <th>TransactionID</th>
+                            <th>Pay Error Code</th>
+                            <th>Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in datatableErr">
+                            <td>{{x.ID}}</td>
+                            <td>{{x.CardType}}</td>
+                            <td>{{parseMoney(x.Amount)}}</td>
+                            <td>{{x.TradeMark}}</td>
+                            <td>{{x.BuyTime | formatDate}}</td>
+                            <td>{{x.TransactionID}}</td>
+                            <td>{{x.ResultCode}}</td>
+                            <td>
+                                <a class="btn btn-danger" ng-click="deleteCardFromBank(x.ID)">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-responsive bs-example widget-shadow" style="padding: 20px;">
+                <h2 class="title1">Mua thẻ</h2>
+                <div class="row">
+                    <label class="control-label col-md-2" for="selectError3">Loại thẻ</label>
+                    <div class="controls col-md-3">
+                        <select name="cardType" class="form-control" id="cardType">
+                            <option value="1">Vietel</option>
+                            <option value="2">Mobi</option>
+                            <option value="3">Vina</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="control-label col-md-2" for="selectError3">Mệnh giá</label>
+                    <div class="controls col-md-3">
+                        <select name="valueCard" class="form-control" id="valueCard">
+                            <option value="20000">20,000</option>
+                            <option value="50000">50,000</option>
+                            <option value="100000">100,000</option>
+                            <option value="200000">200,000</option>
+                            <option value="500000">500,000</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <label class="control-label col-md-2" for="focusedInput">Số lượng</label>
+                    <div class="controls col-md-3 text-center">
+                        <input class="input-small focused form-control" name="total" type="text" value="" id="totalCard">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3"></div>
+                    <button type="submit" class="btn btn-primary" ng-click="chargeCardBank()">Mua thẻ</button>
+                </div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+﻿<style>
+    .ui-datepicker-calendar {
+        display: none;
+    }
+</style>
+<script src="~/Scripts/apps/dashboard.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="dashboard" ng-init="init()">
+    <div class="main-page">
+        <h2 class="title1">Dashboard</h2>
+        <div class="row">
+            <div class="form-group col-md-2">
+                <input type="hidden" id="month" ng-model="month" />
+                <input type="hidden" id="year" ng-model="year" />
+                <label>Chọn tháng :</label><input name="startDate" id="startDate" class="date-picker col-md-12 pull-left" readonly />
+            </div>
+            <button type="button" class="btn btn-primary col-md-1" ng-click="get()" style="margin-left: 50px">Thống kê</button>
+        </div>
+        <div class="table row">
+            <div class="table-responsive bs-example widget-shadow">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Ngày</th>
+                            <th>Tổng nạp thẻ</th>
+                            <th>Tổng đổi thẻ</th>
+                            <th>Tổng bán ĐL</th>
+                            <th>Tống mua ĐL</th>
+                            <th>Tổng phế game</th>
+                            <th>Tổng phế ck</th>
+                            <th>Tổng GC sử dụng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in data">
+                            <th>{{x.Date | formatDateOnly}}</th>
+                            <td>{{x.TotalTopup | parseMoney}}</td>
+                            <td>{{x.TotalCashout | parseMoney}}</td>
+                            <td>{{x.TotalSell | parseMoney}}</td>
+                            <td>{{x.TotalBuy | parseMoney}}</td>
+                            <td>{{x.TotalGameFee | parseMoney}}</td>
+                            <td>{{x.TotalTransFee | parseMoney}}</td>
+                            <td>{{x.TotalGC | parseMoney}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Tổng: </b></td>
+                            <td><b>{{sumTopup | parseMoney}}</b></td>
+                            <td><b>{{sumCashout | parseMoney}}</b></td>
+                            <td><b>{{sumSell | parseMoney}}</b></td>
+                            <td><b>{{sumBuy | parseMoney}}</b></td>
+                            <td><b>{{sumGameFee | parseMoney}}</b></td>
+                            <td><b>{{sumTransFee | parseMoney}}</b></td>
+                            <td><b>{{sumGC | parseMoney}}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('.date-picker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            dateFormat: 'mm - yy',
+            onClose: function (dateText, inst) {
+                $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+                $('#month').val(inst.selectedMonth + 1);
+                $('#year').val(inst.selectedYear);
+            }
+        });
+
+        $(".date-picker").datepicker("setDate", new Date());
+    });
+</script>

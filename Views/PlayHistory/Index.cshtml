@@ -1,0 +1,81 @@
+﻿<style>
+    .folder input {
+        margin: 10px auto;
+        min-width: 100%
+    }
+
+    .chat-grid input {
+        margin: 5px auto;
+        min-width: 100%
+    }
+
+    .chat-grid {
+        padding: 10px;
+    }
+
+    .folder {
+        padding: 10px;
+    }
+
+    .list-group-item {
+        padding: 5px !important;
+    }
+</style>
+
+<script src="~/Scripts/apps/PlayHistory/playHis.js"></script>
+
+<div id="page-wrapper" style="min-height: 896px;" ng-controller="playHis">
+    <div class="main-page">
+        <h2 class="title1">Tra cứu lịch sử chơi</h2>
+        <div class="row">
+            <div class="col-md-4 compose-left">
+                <div class="folder widget-shadow">
+                    <ul>
+                        <li class="head"><i class="fa fa-search" aria-hidden="true"></i>Filter</li>
+                        <li><input type="text" class="form-control" ng-model="accountid" placeholder="Id tài khoản" required=""></li>
+                        <li><input type="text" class="form-control" ng-model="displayName" placeholder="Tên hiển thị" required=""></li>
+                        <li><input type="text" class="form-control" ng-model="username" placeholder="Tên tài khoản" required=""></li>
+                        <li><input type="button" class="btn btn-primary" value="Theo Id" ng-click="historyDefault(0)" /></li>
+                        <li><input type="button" class="btn btn-primary" value="Theo tên hiển thị" ng-click="historyDefault(1)" /></li>
+                        <li><input type="button" class="btn btn-primary" value="Theo tên đăng nhập" ng-click="historyDefault(2)" /></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <button type="button" class="btn btn-primary pull-right col-md-2" ng-click="dl();" ng-if="historyPlay.length">Tải</button>
+        </div>
+        <div class="row">
+            <div class="chat-grid widget-shadow" ng-show="historyPlay != null && historyPlay.length != 0" id="selectedInfo">
+                <p id="noneResult">Không có kết quả nào</p>
+                <table class="table table-bordered" ng-show="historyPlay != null && historyPlay.length > 0">
+                    <thead>
+                        <tr>
+                            <th>Game</th>
+                            <th>Ngày tạo</th>
+                            <th>Giá trị</th>
+                            <th>Số dư</th>
+                            <th>Loại</th>
+                            <th>Mô tả</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in historyPlay">
+                            <th>{{x.Game}}</th>
+                            <td>{{x.CreatedTime | formatDate}}</td>
+                            <td>{{x.Amount | parseMoney}}</td>
+                            <td>{{x.Balance | parseMoney}}</td>
+                            <td>{{x.Type == 1 ? "+" : "-"}}</td>
+                            <td>{{x.Description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-3 pull-right" ng-if="historyPlay.length">
+            <button type="button" class="btn btn-primary pull-left col-md-5" ng-click="prev()" ng-show="curPage >= 1">Trước</button>
+            <button type="button" class="btn btn-primary pull-right col-md-5" ng-click="next()">Sau</button>
+        </div>
+    </div>
+</div>
+
